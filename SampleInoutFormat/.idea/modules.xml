@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SampleInoutFormat.iml" filepath="$PROJECT_DIR$/SampleInoutFormat.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SampleInputFormat.iml" filepath="$PROJECT_DIR$/SampleInputFormat.iml" />
     </modules>
   </component>
 </project>
