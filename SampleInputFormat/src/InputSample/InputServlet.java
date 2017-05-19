@@ -6,27 +6,25 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.SevletException;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Created by smi_kun on 2017/05/18.
- */
-@webServlet("/input")
-public class InputServlet extends javax.servlet.http.HttpServlet {
+
+@WebServlet("/inputs")
+public class InputServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    @override
+    @Override
     protected void service(HttpServletRequest request, HttpServletResponse response)
-            throws javax.servlet.ServletException, IOException {
+            throws ServletException, IOException {
 
         response.setContentType("text/html; charset = UTF-8");
 
         Map<String, String[]> parameterMap = request.getParameterMap();
-        Set<Entry<String, String[]>> parameters = parameteMap.entrySet();
+        Set<Entry<String, String[]>> parameters = parameterMap.entrySet();
         for (Entry<String, String[]> parameter : parameters){
             String key = parameter.getKey();
             String[] values = parameter.getValue();
@@ -43,7 +41,7 @@ public class InputServlet extends javax.servlet.http.HttpServlet {
 
         request.setAttribute("inputsResult", inputsResult);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("input.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("inputs.jsp");
         dispatcher.forward(request, response);
     }
 
