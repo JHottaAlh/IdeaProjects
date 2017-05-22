@@ -9,6 +9,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+<form action = "" method = "post">
+	ID : <input type = "text" name = "id"><br />
+	パスワード : <input type = "password" name = "password"><br />
+	<input type = "submit" value = "登録">
+</form>
+<a href ="./">戻る</a>
 
 </body>
 </html>

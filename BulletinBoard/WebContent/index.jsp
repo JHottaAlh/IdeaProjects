@@ -11,13 +11,13 @@
 <body>
 
 <%-- ログインID/パスワード入力フォーム --%>
-<form action = "" method = "post">
+<form action = "/servlet/Index" method = "post">
 	ログインID : <input type = "text" name = "id"><br />
 	パスワード : <input type = "password" name = "password"><br />
 	<input type = "submit" value = "ログイン"><br />
 </form>
 <%-- 会員登録 --%>
-<a href = "">新規登録</a>
+<a href = "Index">新規登録</a>
 
 </body>
 </html>
