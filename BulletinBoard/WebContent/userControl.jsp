@@ -9,6 +9,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div class = "top-menu">
+<a href = "SignupServlet">ユーザー登録</a>
+</div>
 
 </body>
 </html>
