@@ -10,8 +10,9 @@ import exception.SQLRuntimeException;
 import model.User;
 
 public class UserDao {
-	
+
 	public void insert(Connection connection, User user){
+		//プリコンパイルされたSQL文を生成
 		PreparedStatement ps = null;
 		//新規登録フォームで記載された情報をデータベースに格納
 		try{
@@ -35,18 +36,22 @@ public class UserDao {
 			sql.append(",CURRENT_TIMESTAMP");//timed_at
 			sql.append(",CURRENT_TIMESTAMP");//updated_at
 			sql.append(")");
-			
+
+			//コネクションに使うプリコンパイルされたSQL文をPreparedStatement型のpsインスタンスに格納？（よくわかっていない）
 			ps = connection.prepareStatement(sql.toString());
-			
-			ps.setString(1, user.getLogin_id());
+
+			ps.setString(1, user.getLogin_id());			//ここの番号は昇順で？に割り振られるのか？
 			ps.setString(2, user.getPassword());
 			ps.setString(3, user.getName());
 			ps.setInt(4, user.getBranch_id());
 			ps.setInt(5, user.getDepartment_id());
+			//is_stoppedはデフォルトで0(アカウント利用可能)を設定する
 			ps.setInt(6, 0);
-			
+
+			//SQL文を実行
 			ps.executeUpdate();
-			
+			//逆にデータを取得する場合はexecuteQueryを使う
+
 		}catch(SQLException e){
 			throw new SQLRuntimeException(e);
 		}finally{

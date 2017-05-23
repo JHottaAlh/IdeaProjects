@@ -17,7 +17,7 @@ public class DBUtil {
 	private static final String URL = "jdbc:mysql://localhost/bulletinboard";
 	private static final String USER = "root";
 	private static final String PASSWORD = "alhincPPA7Xn24";
-	
+
 	static{
 		try{
 			Class.forName(DRIVER);
@@ -27,22 +27,28 @@ public class DBUtil {
 	}
 	/*
 	 * コネクション取得
+	 * Connection型のconnection(データベースへのコネクション)が戻り値
+	 * getConnectionを宣言すると（戻り値として）コネクションを取得できるメソッド
 	 */
-	
+
 	public static Connection getConnection(){
 		try{
 			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			//自動でコミットしないように設定
 			connection.setAutoCommit(false);
-			
+
 			return connection;
+
+		//エラーがあればエラーを返す
 		}catch(SQLException e){
 			throw new SQLRuntimeException(e);
 		}
 	}
 	/*
-	 * コミット
+	 * トランザクション（全処理が成功した時はコミット、一つでもエラーがあればロールバック（中止）する）
+	 * コミットメソッド
 	 */
-	
+
 	public static void commit(Connection connection){
 		try{
 			connection.commit();
@@ -51,9 +57,9 @@ public class DBUtil {
 		}
 	}
 	/*
-	 * ロールバック
+	 * ロールバックメソッド
 	 */
-	
+
 	public static void rollback(Connection connection){
 		try{
 			connection.rollback();

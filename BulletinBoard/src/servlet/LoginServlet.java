@@ -1,4 +1,4 @@
-//アクセスされたらindex.jspにつなぐためのサーブレット
+//アクセスされたらlogin.jspにつなぐためのサーブレット
 package servlet;
 
 import java.io.IOException;
@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Index
  */
-@WebServlet(urlPatterns = {"/index.jsp"})
+@WebServlet(urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("/top.jsp").forward(request, response);
+		request.getRequestDispatcher("/login.jsp").forward(request, response);
 	}
 
 }

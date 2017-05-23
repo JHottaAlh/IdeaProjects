@@ -12,12 +12,13 @@
 <body>
 <div class = "top-menu">
 	<a href = "UserControlServletl">ユーザー管理</a>
+	<a href = "LoginServlet">ログイン</a>
 	<a href = "">ログアウト</a>		<%-- 一旦ホームに戻るように組んである --%>
 </div>
 
 <%-- forEachとかで取得した記事の数だけ表示をループさせる --%>
 <div class = "post">
-	
+
 </div>
 
 </body>

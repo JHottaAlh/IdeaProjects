@@ -13,16 +13,15 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Index
  */
-@WebServlet("/Index")
+@WebServlet("/index.jsp")
 public class Index extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//新規登録をクリックされた時の処理
-		//ユーザー登録画面に遷移
-		RequestDispatcher d = request.getRequestDispatcher("signup.jsp");
+		//ホーム画面に移動
+		RequestDispatcher d = request.getRequestDispatcher("home.jsp");
 		d.forward(request, response);
 	}
 
