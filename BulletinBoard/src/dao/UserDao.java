@@ -15,7 +15,7 @@ import model.User;
 public class UserDao {
 	
 	//戻り値User(Beans)型のgetUserメソッド
-	//
+	//usersテーブルからログインIDとパスワードを参照し、レコード（該当するユーザー情報）が存在するかチェック
 	public User getUser(Connection connection, String id, String password){
 		PreparedStatement ps = null;
 		try{
@@ -70,7 +70,7 @@ public class UserDao {
 		}
 	}
 	
-
+	//ユーザー登録のためのSQL文作成
 	public void insert(Connection connection, User user){
 		//プリコンパイルされたSQL文を生成
 		PreparedStatement ps = null;

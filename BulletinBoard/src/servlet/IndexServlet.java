@@ -3,7 +3,6 @@ package servlet;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,8 +20,7 @@ public class IndexServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		//ホーム画面に移動
-		RequestDispatcher d = request.getRequestDispatcher("home.jsp");
-		d.forward(request, response);
+		request.getRequestDispatcher("/home").forward(request, response);
 	}
 
 }

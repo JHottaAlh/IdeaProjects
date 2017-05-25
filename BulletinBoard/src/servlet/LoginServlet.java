@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
 		String login_id = request.getParameter("login_id");
 		String password = request.getParameter("password");
 		
-		//LoginServiceクラスの処理を実行
+		//LoginServiceクラスのインスタンスを生成
 		LoginService loginService = new LoginService();
 		User user = loginService.login(login_id, password);
 		

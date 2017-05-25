@@ -1,3 +1,4 @@
+//postsテーブルに新規投稿画面で入力された内容を投稿するためのSQL文の作成
 package dao;
 
 import static utils.CloseableUtil.*;
