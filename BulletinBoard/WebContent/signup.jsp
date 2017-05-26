@@ -36,7 +36,7 @@
 	<input name = "name" id = "name"/><br />
 	<br/>
 	
-	支店 :<br/>
+	支店 :
 	<select name = "branch_id">
 		<option value = "0">本社</option>
 		<option value = "1">支店A</option>
@@ -45,7 +45,7 @@
 	</select>
 	<br/>
 	<br/>
-	部署・役職 :<br/>
+	部署・役職 :
 	<select name = "department_id">
 		<option value = "0">人事総務部</option>
 		<option value = "1">情報セキュリティ部</option>

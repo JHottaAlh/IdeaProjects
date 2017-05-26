@@ -11,6 +11,7 @@ public class UserControl implements Serializable {
 	private String login_id;
 	private String name;
 	private int is_stopped;
+	private String password;
 	
 	public int getId() {return id;}
 	public void setId(int id) {this.id = id;}
@@ -23,5 +24,8 @@ public class UserControl implements Serializable {
 	
 	public int getIs_stopped() {return is_stopped;}
 	public void setIs_stopped(int is_stopped) {this.is_stopped = is_stopped;}
+	
+	public String getPassword() {return password;}
+	public void setPassword(String password) {this.password = password;}
 	
 }

@@ -1,3 +1,5 @@
+//update保留案件有(更新時間での編集重複防止機能)
+
 package dao;
 
 import static utils.CloseableUtil.*;
@@ -9,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import exception.NoRowsUpdatedRuntimeException;
 import exception.SQLRuntimeException;
 import model.User;
 
@@ -113,6 +116,45 @@ public class UserDao {
 			ps.executeUpdate();
 			//逆にデータを取得する場合はexecuteQueryを使う
 
+		}catch(SQLException e){
+			throw new SQLRuntimeException(e);
+		}finally{
+			close(ps);
+		}
+	}
+	
+	//ユーザー情報を変更するためのDao
+	public void update(Connection connection, User user){
+		
+		PreparedStatement ps = null;
+		try{
+			StringBuilder sql = new StringBuilder();
+			sql.append("UPDATE users SET");
+			sql.append(" login_id = ?");	//1.login_id
+			sql.append(", password = ?");	//2.password
+			sql.append(", name = ?");		//3.name
+			sql.append(", branch_id");		//4.branch_id
+			sql.append(", department_id");	//5.department_id
+			sql.append(", updated_at = CURRENT_TIMESTAMP");
+			sql.append(" WHERE");
+			sql.append(" id = ?");			//6.id
+			//sql.append(" AND");
+			//sql.append(" updated_at = ?");	//7.updated_at
+			
+			ps = connection.prepareStatement(sql.toString());
+			
+			ps.setString(1, user.getLogin_id());
+			ps.setString(2, user.getPassword());
+			ps.setString(3, user.getName());
+			ps.setInt(4, user.getBranch_id());
+			ps.setInt(5, user.getDepartment_id());
+			ps.setInt(6, user.getId());
+			//ps.setTimestamp(7, new Timestamp(user.getUpdated_at().getTime));
+			
+			int count = ps.executeUpdate();
+			if(count == 0){
+				throw new NoRowsUpdatedRuntimeException();
+			}
 		}catch(SQLException e){
 			throw new SQLRuntimeException(e);
 		}finally{

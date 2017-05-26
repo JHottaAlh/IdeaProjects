@@ -26,7 +26,7 @@
 	<form action = "NewPostServlet" method = "post">
 	<div class = "title">
 		件名 : <br/>
-		<input type = "text" name = "title" id = title><br/>
+		<input type = "text" name = "title" id = "title"><br/>
 		<br/>
 	</div>
 	<div class = "category">
@@ -43,7 +43,8 @@
 		<textarea name="text" rows = "8" cols="50" id = "text"></textarea><br/>
 		<br/>
 	</div>
-	<input type = "submit" value = "投稿">
+	<input type = "submit" value = "投稿"><br/>
+	<a href = "./">戻る</a>
 	</form>
 </div>
 

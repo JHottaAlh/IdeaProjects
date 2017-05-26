@@ -39,6 +39,29 @@ public class UserControlService {
 		 }
 	 }
 	
+	//特定のユーザー情報を取得するためのコード
+	public List<UserControl> personalData(int primaryID){
+				 
+		Connection connection = null;
+		try{
+			connection = getConnection();
+					 
+			UserControlDao controlDao = new UserControlDao();
+			List<UserControl> ret = controlDao.personalData(connection, primaryID);	
+					 
+			commit(connection);
+					 
+			return ret;
+		}catch(RuntimeException e){
+			rollback(connection);
+			throw e;
+		}catch(Error e){
+			rollback(connection);
+			throw e;
+		}finally{
+			close(connection);
+		}
+	}
 	
 
 }

@@ -28,10 +28,9 @@ public class UserControlDao {
 			ps = connection.prepareStatement(sql.toString());
 			
 			//ps(SQL文)を実行、Queryによりデータを取り出しそれをrsに格納している
-			//その後rs
 			ResultSet rs = ps.executeQuery();
 			List<UserControl> ret = toUserControlList(rs);
-			//メソッドの呼び出し元に取り出したデータを格納したretリストを戻り値として送る
+			//メソッドの呼び出し元に取り出したデータを格納したUserControl(Beans)型のretリストを戻り値として送る
 			return ret;
 		}catch(SQLException e){
 			throw new SQLRuntimeException(e);
@@ -39,6 +38,29 @@ public class UserControlDao {
 			close(ps);
 		}
 	}
+	
+	//特定のユーザーの情報だけを抽出するためのDao
+		public  List<UserControl> personalData(Connection connection, int primaryID){
+			
+			PreparedStatement ps = null;
+			try{
+				StringBuilder sql = new StringBuilder();
+				sql.append("SELECT*FROM users WHERE id = ? ;");
+				
+				ps = connection.prepareStatement(sql.toString());
+				
+				ps.setInt(1, primaryID);
+				
+				ResultSet rs = ps.executeQuery();
+				List<UserControl> ret = toUserControlList(rs);
+				
+				return ret;
+			}catch(SQLException e){
+				throw new SQLRuntimeException(e);
+			}finally{
+				close(ps);
+			}
+		}
 	
 	
 	//user_controlビューから取り出したデータを格納するメソッド
@@ -53,6 +75,7 @@ public class UserControlDao {
 				String login_id = rs.getString("login_id");
 				String name = rs.getString("name");
 				int is_stopped = rs.getInt("is_stopped");
+				String password = rs.getString("password");
 				
 				//ローカル変数をuserData(Beans)にセット
 				UserControl userData = new UserControl();
@@ -60,6 +83,7 @@ public class UserControlDao {
 				userData.setLogin_id(login_id);
 				userData.setName(name);
 				userData.setIs_stopped(is_stopped);
+				userData.setPassword(password);
 				
 				//retにBeansの情報を格納して戻り値として戻す
 				ret.add(userData);

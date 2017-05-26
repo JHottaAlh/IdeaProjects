@@ -4,6 +4,8 @@ package model;
 
 import java.io.Serializable;
 
+import com.sun.jmx.snmp.Timestamp;
+
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -13,6 +15,8 @@ public class User implements Serializable {
 	private String name;
 	private int branch_id;
 	private int department_id;
+	private Timestamp timed_at;
+	private Timestamp updated_at;
 
 	public int getId(){ return id; }
 	public void setId(int id){ this.id = id; }
@@ -31,5 +35,11 @@ public class User implements Serializable {
 
 	public int getDepartment_id(){ return department_id; }
 	public void setDepartment_id(int department_id){ this.department_id = department_id; }
+	
+	public Timestamp getTimed_at() {return timed_at;}
+	public void setTimed_at(Timestamp timed_at) {this.timed_at = timed_at;}
+	
+	public Timestamp getUpdated_at() {return updated_at;}
+	public void setUpdated_at(Timestamp updated_at) {this.updated_at = updated_at;}
 
 }
