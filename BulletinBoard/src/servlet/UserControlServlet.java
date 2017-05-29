@@ -26,6 +26,7 @@ public class UserControlServlet extends HttpServlet {
 		//UserControl型のuserDataリストを作成し、UserControlServiceクラスのgetControlメソッドでユーザー情報を取り出し、格納
 		List<UserControl> userData = new UserControlService().getControl();
 		
+		
 		//userDataというキーに上のuserDataリストを格納、userControl.jspに値を渡す
 		request.setAttribute("userData", userData);
 		

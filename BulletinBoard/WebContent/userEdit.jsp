@@ -24,21 +24,24 @@
 		<c:remove var = "errorMessages" scope = "session"/>
 	</c:if>
 	<div class = "title">
-		<c:out value = "内部キー${ editUserID.id }のユーザーの編集"/>
+		<c:out value = ""/>
 	</div>
 	<div class = "editor">
 		<form action = "UserEditSendServlet" method = "post">
-			<input type = "hidden" name = "id" value = "${ editUserID.id }">
-			ログインID : <input type = "text" name = "login_id"><br/>
+		<c:forEach items = "${ personalData }" var = "data">
+			<input type = "hidden" name = "id" value = "${ data.id }"/>
+			ログインID : <input type = "text" id = "login_id" name = "login_id" value = "${ data.login_id }"><br/>
 			<br/>
-			パスワード : <input type = "password" name = "password"><br/>
+			パスワード : <input type = "password" id = "password" name = "password"><br/>
 			<br/>
-			パスワード(確認用) : <input type = "password" name = "password1"><br/>
+			パスワード(確認用) : <input type = "password" id = "password1" name = "password1"><br/>
 			<br/>
-			ユーザー名 : <input type = "text" name = "name"><br/>
+			<%-- 何も入力されなかったときのための暗号化された元のパスワードを送る --%>
+			<input type = "hidden" id = "password2" name = "password2" value = "${ data.password }">
+			ユーザー名 : <input type = "text" id = "name" name = "name" value = "${ data.name }"><br/>
 			<br/>
 			支店 :
-			<select name = "branch_id">
+			<select id = "branch_id" name = "branch_id">
 				<option value = "0">本社</option>
 				<option value = "1">支店A</option>
 				<option value = "2">支店B</option>
@@ -47,7 +50,7 @@
 			<br/>
 			<br/>
 			部署・役職 :
-			<select name = "department_id">
+			<select id = "department_id" name = "department_id">
 				<option value = "0">人事総務部</option>
 				<option value = "1">情報セキュリティ部</option>
 				<option value = "2">店長</option>
@@ -55,6 +58,7 @@
 			</select>
 			<br/>	
 			<input type = "submit" value = "登録">
+		</c:forEach>
 		</form>
 	</div>
 </div>

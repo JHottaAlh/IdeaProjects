@@ -49,11 +49,64 @@ public class UserService {
 		try{
 			connection = getConnection();
 			
-			String encPassword = CipherUtil.encrypt(user.getPassword());
-			user.setPassword(encPassword);
+			//元のパスワードの場合ここで暗号化はNG
 			
 			UserDao userDao = new UserDao();
 			userDao.update(connection, user);
+			
+			commit(connection);
+		}catch(RuntimeException e){
+			rollback(connection);
+			throw e;
+		}catch(Error e){
+			rollback(connection);
+			throw e;
+		}finally{
+			close(connection);
+		}
+	}
+	
+	//ログインIDの重複チェック用メソッド
+	public boolean idCheck(String login_id, int id){
+		Connection connection = null;
+		try{
+			connection = getConnection();
+			
+			UserDao userDao = new UserDao();
+			int user = userDao.getID(connection, login_id);
+			
+			commit(connection);
+			
+			
+			//未登録のユーザーIDであれば通す
+			if(user == 0){
+				return true;
+			//ユーザーのプライマリキーと変更したいユーザーのプライマリキーが一致していれば通す
+			}else if(user == id){
+				return true;
+			//その他、重複しているならfalse
+			}else{
+				return false;
+			}
+		}catch(RuntimeException e){
+			rollback(connection);
+			throw e;
+		}catch(Error e){
+			rollback(connection);
+			throw e;
+		}finally{
+			close(connection);
+		}
+	}
+	
+	//is_stopped切り替えメソッド
+	public void isStopped(int id, int is_stopped){
+		Connection connection = null;
+		try{
+			connection = getConnection();
+			
+			UserDao userDao = new UserDao();
+			userDao.isStopped(connection, id, is_stopped);
 			
 			commit(connection);
 		}catch(RuntimeException e){

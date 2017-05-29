@@ -56,14 +56,35 @@ public class SignupServlet extends HttpServlet {
 	}
 
 	private boolean isValid(HttpServletRequest request, List<String>messages){
-		String id = request.getParameter("login_id");
+		String login_id = request.getParameter("login_id");
 		String password = request.getParameter("password");
-
-		if(StringUtils.isEmpty(id) == true){
-			messages.add("IDを入力してください");
+		String name = request.getParameter("name");
+		//初回登録時はプライマリキーがないので0を初期値とする
+		boolean idCheck = new UserService().idCheck(login_id, 0);
+		
+		if(!idCheck){
+			messages.add("ログインIDが重複しています");
 		}
-		if(StringUtils.isEmpty(password) == true){
-			messages.add("パスワードを入力してください");
+		
+		if(!login_id.matches("[a-zA-Z0-9]+")){
+			messages.add("ログインIDは半角英数字で入力してください");
+		}
+		if(StringUtils.isEmpty(login_id) == true){
+			messages.add("ログインIDを入力してください");
+		}
+		if(6 > login_id.length() || 20 < login_id.length()){
+			messages.add("ログインIDは6文字以上20文字以下で入力してください");
+		}
+		
+		if(password.length() != 0 && (6 > password.length() || 255 < password.length())){
+			messages.add("パスワードは6文字以上255文字以下で入力してください");
+		}
+		
+		if(StringUtils.isEmpty(name) == true){
+			messages.add("ユーザー名を入力してください");
+		}
+		if(10 < name.length()){
+			messages.add("ユーザー名は10文字以下で入力してください");
 		}
 		if(messages.size() == 0){
 			return true;

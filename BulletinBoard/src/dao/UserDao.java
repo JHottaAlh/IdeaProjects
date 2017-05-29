@@ -31,7 +31,7 @@ public class UserDao {
 			//psでデータベースから取り出した値をrsに代入
 			ResultSet rs = ps.executeQuery();
 			List<User> userList = toUserList(rs);
-			if (userList.isEmpty() == true){
+			if (userList.isEmpty()){
 				return null;
 			}else if(2 <= userList.size()){
 				throw new IllegalStateException("2 <= userList.size()");
@@ -45,7 +45,8 @@ public class UserDao {
 		}
 	}
 	
-	private List<User> toUserList(ResultSet rs) throws SQLException{
+	private List<User> toUserList(ResultSet rs) 
+			throws SQLException{
 		
 		List<User> ret = new ArrayList<User>();
 		try{
@@ -68,6 +69,52 @@ public class UserDao {
 				ret.add(user);
 			}
 			return ret;
+		}finally{
+			close(rs);
+		}
+	}
+	
+	//ユーザー情報のログインIDとプライマリキーを取り出す
+	public int getID(Connection connection, String login_id){
+		PreparedStatement ps = null;
+		try{
+			//データベースからデータを取得するSQL文
+			String sql = "SELECT id, login_id FROM users WHERE login_id = ? ";
+			ps = connection.prepareStatement(sql);
+			ps.setString(1, login_id);
+			
+			//psでデータベースから取り出した値をrsに代入
+			ResultSet rs = ps.executeQuery();
+			
+			User user = toGetID(rs);
+			int userKey = user.getId();
+			//ログインIDが重複していなかったら
+			if(user.getLogin_id() == null){
+				return 0;
+			}else{
+				//重複していたら重複していたユーザーのプライマリキーを送る
+				return userKey;
+			}
+		}catch(SQLException e){
+			throw new SQLRuntimeException(e);
+		}finally{
+			close(ps);
+		}
+	}
+	private User toGetID(ResultSet rs) 
+			throws SQLException{
+		
+		User userKey = new User();
+		try{
+			while (rs.next()){
+				int id = rs.getInt("id");
+				String login_id = rs.getString("login_id");
+
+				userKey.setId(id);
+				userKey.setLogin_id(login_id);
+				return userKey;	
+			}
+			return userKey;
 		}finally{
 			close(rs);
 		}
@@ -133,8 +180,8 @@ public class UserDao {
 			sql.append(" login_id = ?");	//1.login_id
 			sql.append(", password = ?");	//2.password
 			sql.append(", name = ?");		//3.name
-			sql.append(", branch_id");		//4.branch_id
-			sql.append(", department_id");	//5.department_id
+			sql.append(", branch_id = ?");		//4.branch_id
+			sql.append(", department_id = ?");	//5.department_id
 			sql.append(", updated_at = CURRENT_TIMESTAMP");
 			sql.append(" WHERE");
 			sql.append(" id = ?");			//6.id
@@ -155,6 +202,41 @@ public class UserDao {
 			if(count == 0){
 				throw new NoRowsUpdatedRuntimeException();
 			}
+		}catch(SQLException e){
+			throw new SQLRuntimeException(e);
+		}finally{
+			close(ps);
+		}
+	}
+	
+	//is_stoppedを切り替えるためのDao
+	public void isStopped(Connection connection, int id, int is_stopped){
+		
+		PreparedStatement ps = null;
+		try{
+			StringBuilder sql = new StringBuilder();
+			sql.append("UPDATE users SET");
+			sql.append(" is_stopped = ?");	//1.is_stopped
+			sql.append(" ,updated_at = CURRENT_TIMESTAMP");
+			sql.append(" WHERE");
+			sql.append(" id = ?");			//2.id
+			
+			ps = connection.prepareStatement(sql.toString());
+			
+			//is_stoppedが0なら1に、1なら0にアップデートする
+			if(is_stopped == 0){
+				ps.setInt(1, 1);
+			}
+			if(is_stopped == 1){
+				ps.setInt(1, 0);
+			}
+			ps.setInt(2, id);
+			
+			int count = ps.executeUpdate();
+			if(count == 0){
+				throw new NoRowsUpdatedRuntimeException();
+			}
+			
 		}catch(SQLException e){
 			throw new SQLRuntimeException(e);
 		}finally{

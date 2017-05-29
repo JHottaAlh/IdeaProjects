@@ -47,10 +47,12 @@ public class UserControlService {
 			connection = getConnection();
 					 
 			UserControlDao controlDao = new UserControlDao();
-			List<UserControl> ret = controlDao.personalData(connection, primaryID);	
+			//Daoの戻り値であるretをこちらで同型同名で宣言し、そこに格納
+			List<UserControl> ret = controlDao.personalDataDao(connection, primaryID);	
 					 
 			commit(connection);
-					 
+			
+			//同じようにサーブレットにUserControl型のretリストをリターン
 			return ret;
 		}catch(RuntimeException e){
 			rollback(connection);

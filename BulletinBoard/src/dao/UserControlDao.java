@@ -40,7 +40,7 @@ public class UserControlDao {
 	}
 	
 	//特定のユーザーの情報だけを抽出するためのDao
-		public  List<UserControl> personalData(Connection connection, int primaryID){
+		public  List<UserControl> personalDataDao(Connection connection, int primaryID){
 			
 			PreparedStatement ps = null;
 			try{
@@ -93,5 +93,4 @@ public class UserControlDao {
 			close(rs);
 		}
 	}
-
 }

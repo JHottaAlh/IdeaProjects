@@ -22,11 +22,11 @@ public class UserEditServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-		List<UserControl> userData = 
+		List<UserControl> personalData = 
 				new UserControlService().personalData(Integer.parseInt(request.getParameter("id")));
-		//Beansに格納するところから開始
 		
-		request.setAttribute("userData", userData);
+		//Beansに格納するところから開始
+		request.setAttribute("personalData", personalData);
 		
 		request.getRequestDispatcher("/userEdit.jsp").forward(request, response);
 	}

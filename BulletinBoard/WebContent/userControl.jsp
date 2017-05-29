@@ -24,10 +24,23 @@
  		<tr>
  			<td><c:out value = "${ data.login_id }"/></td>
  			<td><c:out value = "${ data.name }"/></td>
- 			<td><c:out value = "${ data.is_stopped }"/></td> 			
+ 			<td>
+ 				<form action = "IsStoppedServlet" method = "post">
+ 					<c:if test = "${ data.is_stopped == 0 }">
+ 						<input type = "hidden" name = "id" id = "id" value = "${ data.id }"/>
+ 						<input type = "hidden" name = "is_stopped" id = "is_stopped" value = "${ data.is_stopped }"/>
+ 						<input type = "submit" value = "停止"/>
+ 					</c:if>
+ 					<c:if test = "${ data.is_stopped == 1 }">
+ 						<input type = "hidden" name = "id" id = "id" value = "${ data.id }"/>
+ 						<input type = "hidden" name = "is_stopped" id = "is_stopped" value = "${ data.is_stopped }"/>
+ 						<input type = "submit" value = "復活"/>
+ 					</c:if>
+ 				</form>
+ 			</td> 			
  			<td>
  				<form action = "UserEdit" method = "post">			
- 				<input type = "hidden" name = "id" value = "${ data.id }"/>
+ 				<input type = "hidden" name = "id" id = "id" value = "${ data.id }"/>
  				<input type = "submit" value = "編集"/>
  				</form>
  			</td>
