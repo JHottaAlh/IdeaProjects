@@ -15,6 +15,7 @@ import model.Post;
 
 public class PostDao {
 	
+	//新規投稿メソッド
 	public void insert(Connection connection, Post post){
 		//プリコンパイルされたSQL文を生成
 		PreparedStatement ps = null;
@@ -42,7 +43,7 @@ public class PostDao {
 
 			ps.setString(1, post.getTitle());			//ここの番号は昇順で？に割り振られる
 			ps.setString(2, post.getText());
-			ps.setInt(3, post.getCategory());
+			ps.setString(3, post.getCategory());
 			ps.setInt(4, post.getUser_id());
 			
 			
@@ -50,6 +51,45 @@ public class PostDao {
 			ps.executeUpdate();
 			//逆にデータを取得する場合はexecuteQueryを使う
 
+		}catch(SQLException e){
+			throw new SQLRuntimeException(e);
+		}finally{
+			close(ps);
+		}
+	}
+	
+	//投稿削除メソッド
+	public void delete(Connection connection, int id, int user_id){
+		PreparedStatement ps = null;
+		try{
+			StringBuilder sql = new StringBuilder();
+			sql.append("DELETE FROM posts WHERE id = ? AND user_id = ?");
+			
+			ps = connection.prepareStatement(sql.toString());
+			
+			ps.setInt(1, id);
+			ps.setInt(2, user_id);
+			
+			ps.executeUpdate();
+		}catch(SQLException e){
+			throw new SQLRuntimeException(e);
+		}finally{
+			close(ps);
+		}
+	}
+	
+	//投稿に対するコメント削除メソッド
+	public void commentDelete(Connection connection, int id){
+		PreparedStatement ps = null;
+		try{
+			StringBuilder sql = new StringBuilder();
+			sql.append("DELETE FROM comments WHERE post_id = ?");
+				
+			ps = connection.prepareStatement(sql.toString());
+				
+			ps.setInt(1, id);
+				
+			ps.executeUpdate();
 		}catch(SQLException e){
 			throw new SQLRuntimeException(e);
 		}finally{

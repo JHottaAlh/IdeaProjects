@@ -19,13 +19,13 @@ public class UserDao {
 	
 	//戻り値User(Beans)型のgetUserメソッド
 	//usersテーブルからログインIDとパスワードを参照し、レコード（該当するユーザー情報）が存在するかチェック
-	public User getUser(Connection connection, String id, String password){
+	public User getUser(Connection connection, String login_id, String password){
 		PreparedStatement ps = null;
 		try{
 			//データベースからデータを取得するSQL文
 			String sql = "SELECT * FROM users WHERE login_id = ? AND password = ?";
 			ps = connection.prepareStatement(sql);
-			ps.setString(1, id);
+			ps.setString(1, login_id);
 			ps.setString(2, password);
 			
 			//psでデータベースから取り出した値をrsに代入
@@ -57,6 +57,7 @@ public class UserDao {
 				String name = rs.getString("name");
 				int branch_id = rs.getInt("branch_id");
 				int department_id = rs.getInt("department_id");
+				int is_stopped = rs.getInt("is_stopped");
 				
 				User user = new User();
 				user.setId(id);
@@ -65,6 +66,7 @@ public class UserDao {
 				user.setName(name);
 				user.setBranch_id(branch_id);
 				user.setDepartment_id(department_id);
+				user.setIs_stopped(is_stopped);
 				
 				ret.add(user);
 			}

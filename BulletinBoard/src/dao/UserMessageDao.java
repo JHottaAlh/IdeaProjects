@@ -41,15 +41,17 @@ public class UserMessageDao {
 		List<UserMessage> ret = new ArrayList<UserMessage>();
 		try{
 			while (rs.next()){
+				int id = rs.getInt("id");
 				int user_id = rs.getInt("user_id");
 				String title = rs.getString("title");
-				int category = rs.getInt("category");
+				String category = rs.getString("category");
 				String text = rs.getString("text");
 				Timestamp timed_at = rs.getTimestamp("timed_at");
 				Timestamp updated_at = rs.getTimestamp("updated_at");
 				String name = rs.getString("name");
 				
 				UserMessage message = new UserMessage();
+				message.setId(id);
 				message.setUser_id(user_id);
 				message.setTitle(title);
 				message.setCategory(category);

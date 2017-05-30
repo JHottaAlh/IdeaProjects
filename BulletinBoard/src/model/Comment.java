@@ -1,31 +1,22 @@
+//コメントに関するBeans
 package model;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class UserMessage implements Serializable {
+public class Comment implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private int id;
-	private int user_id;
-	private String title;
-	private String category;
 	private String text;
 	private Date timed_at;
 	private Date updated_at;
+	private int post_id;
+	private int user_id;
 	private String name;
 	
 	public int getId() {return id;}
 	public void setId(int id) {this.id = id;}
-	
-	public int getUser_id() {return user_id;}
-	public void setUser_id(int user_id) {this.user_id = user_id;}
-	
-	public String getTitle() {return title;}
-	public void setTitle(String title) {this.title = title;
-	}
-	public String getCategory() {return category;}
-	public void setCategory(String category) {this.category = category;}
 	
 	public String getText() {return text;}
 	public void setText(String text) {this.text = text;}
@@ -35,6 +26,12 @@ public class UserMessage implements Serializable {
 	
 	public Date getUpdated_at() {return updated_at;}
 	public void setUpdated_at(Date updated_at) {this.updated_at = updated_at;}
+	
+	public int getPost_id() {return post_id;}
+	public void setPost_id(int post_id) {this.post_id = post_id;}
+	
+	public int getUser_id() {return user_id;}
+	public void setUser_id(int user_id) {this.user_id = user_id;}
 	
 	public String getName() {return name;}
 	public void setName(String name) {this.name = name;}

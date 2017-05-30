@@ -32,9 +32,9 @@
 	<div class = "category">
 		カテゴリ : <br/>
 		<select name = "category">
-			<option value = "0">支店情報</option>
-			<option value = "1">本部情報</option>
-			<option value = "2">共通</option>
+			<option value = "支店情報">支店情報</option>
+			<option value = "本部情報">本部情報</option>
+			<option value = "共通">共通</option>
 		</select><br/>
 		<br/>
 	</div>

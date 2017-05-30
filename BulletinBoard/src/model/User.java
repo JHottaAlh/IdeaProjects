@@ -17,6 +17,7 @@ public class User implements Serializable {
 	private int department_id;
 	private Timestamp timed_at;
 	private Timestamp updated_at;
+	private int is_stopped;
 
 	public int getId(){ return id; }
 	public void setId(int id){ this.id = id; }
@@ -41,5 +42,8 @@ public class User implements Serializable {
 	
 	public Timestamp getUpdated_at() {return updated_at;}
 	public void setUpdated_at(Timestamp updated_at) {this.updated_at = updated_at;}
+	
+	public int getIs_stopped() {return is_stopped;}
+	public void setIs_stopped(int is_stopped) {this.is_stopped = is_stopped;}
 
 }

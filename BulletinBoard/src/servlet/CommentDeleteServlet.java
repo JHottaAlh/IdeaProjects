@@ -8,23 +8,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import service.UserService;
+import service.CommentService;
 
 /**
- * Servlet implementation class IsStoppedServlet
+ * Servlet implementation class CommentDeleteServlet
  */
-@WebServlet("/IsStoppedServlet")
-public class IsStoppedServlet extends HttpServlet {
+@WebServlet("/CommentDelete")
+public class CommentDeleteServlet extends HttpServlet { 
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
+		//コメントを削除するためのPostメソッド
 		int id = Integer.parseInt(request.getParameter("id"));
-		int is_stopped = Integer.parseInt(request.getParameter("is_stopped"));
-		new UserService().isStopped(id, is_stopped);
-		
-		response.sendRedirect("UserControlServlet");
+		int user_id = Integer.parseInt(request.getParameter("user_id"));
+			
+		CommentService commentService = new CommentService();
+		commentService.delete(id, user_id);
+			
+		response.sendRedirect("home");
 	}
 
 }

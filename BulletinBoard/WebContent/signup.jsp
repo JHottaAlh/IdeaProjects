@@ -37,7 +37,7 @@
 	<br/>
 	
 	支店 :
-	<select name = "branch_id">
+	<select id = "branch_id" name = "branch_id">
 		<option value = "0">本社</option>
 		<option value = "1">支店A</option>
 		<option value = "2">支店B</option>
@@ -46,7 +46,7 @@
 	<br/>
 	<br/>
 	部署・役職 :
-	<select name = "department_id">
+	<select id = "department_id" name = "department_id">
 		<option value = "0">人事総務部</option>
 		<option value = "1">情報セキュリティ部</option>
 		<option value = "2">店長</option>

@@ -43,10 +43,18 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		//ユーザーが存在した場合(ログインIDとパスワードが一致した場合)
 		if(user != null){
-			//セッションにユーザー情報を追加
-			//loginUserキーにuserの値を格納
-			session.setAttribute("loginUser", user);
-			response.sendRedirect("./");
+			if(user.getIs_stopped() == 1){
+				//ユーザーは存在したがアカウントが停止状態だった場合
+				List<String> messages = new ArrayList<String>();
+				messages.add("該当するアカウントは管理者によって停止されています");
+				session.setAttribute("errorMessages", messages);
+				response.sendRedirect("login.jsp");
+			}else{
+				//セッションにユーザー情報を追加
+				//loginUserキーにuserの値を格納
+				session.setAttribute("loginUser", user);
+				response.sendRedirect("./");
+			}
 		}else{
 			//ユーザーが存在しなかった場合エラーメッセージをセッションに追加
 			//ログイン画面に戻す
@@ -56,5 +64,5 @@ public class LoginServlet extends HttpServlet {
 			response.sendRedirect("login.jsp");
 		}
 	}
-
 }
+

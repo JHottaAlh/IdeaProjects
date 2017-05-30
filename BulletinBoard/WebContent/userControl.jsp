@@ -5,11 +5,30 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type = "text/javascript">
+<!--
+//ユーザー状態切り替え時の確認ダイアログ(is_stopped)
+function disp(){
+
+	// 「OK」時の処理開始 ＋ 確認ダイアログの表示
+	if(window.confirm('ユーザーの状態を切り替えます')){
+
+		location.href = "IsStoppedServlet";
+		return true;
+
+	}
+	// 「OK」時の処理終了
+	return false;
+
+}
+-->
+</script>
 <title>Insert title here</title>
 </head>
 <body>
 <div class = "top-menu">
 <a href = "SignupServlet">ユーザー登録</a>
+<a href = "./">戻る</a>
 </div>
 
 <div class = "member-list">
@@ -29,12 +48,12 @@
  					<c:if test = "${ data.is_stopped == 0 }">
  						<input type = "hidden" name = "id" id = "id" value = "${ data.id }"/>
  						<input type = "hidden" name = "is_stopped" id = "is_stopped" value = "${ data.is_stopped }"/>
- 						<input type = "submit" value = "停止"/>
+ 						<input type = "submit" value = "停止" onClick = "return disp()"/>
  					</c:if>
  					<c:if test = "${ data.is_stopped == 1 }">
  						<input type = "hidden" name = "id" id = "id" value = "${ data.id }"/>
  						<input type = "hidden" name = "is_stopped" id = "is_stopped" value = "${ data.is_stopped }"/>
- 						<input type = "submit" value = "復活"/>
+ 						<input type = "submit" value = "復活" onClick = "return disp()"/>
  					</c:if>
  				</form>
  			</td> 			

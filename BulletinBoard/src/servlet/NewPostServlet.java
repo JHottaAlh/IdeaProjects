@@ -39,7 +39,7 @@ public class NewPostServlet extends HttpServlet {
 			//Post(Beans)クラスのpostインスタンスを宣言
 			Post post = new Post();
 			post.setTitle(request.getParameter("title"));
-			post.setCategory(Integer.parseInt(request.getParameter("category")));
+			post.setCategory(request.getParameter("category"));
 			post.setText(request.getParameter("text"));	
 			post.setUser_id(user.getId());
 			

@@ -8,7 +8,7 @@ public class Post implements Serializable{
 	
 	private int id;
 	private String title;
-	private int category;
+	private String category;
 	private String text;
 	private int user_id;
 	
@@ -18,8 +18,8 @@ public class Post implements Serializable{
 	public String getTitle(){ return title; }
 	public void setTitle(String title){ this.title = title; }
 	
-	public int getCategory(){ return category; }
-	public void setCategory(int category){ this.category = category; }
+	public String getCategory(){ return category; }
+	public void setCategory(String category){ this.category = category; }
 	
 	public String getText(){ return text; }
 	public void setText(String text){ this.text = text; }

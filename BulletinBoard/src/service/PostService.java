@@ -41,27 +41,70 @@ public class PostService {
 	
 	//メッセージ一覧を取得するためのコード
 	private static final int LIMIT_NUM = 1000;
-	 public List<UserMessage> getMessage(){
+	public List<UserMessage> getMessage(){
 		 
-		 Connection connection = null;
-		 try{
-			 connection = getConnection();
+		Connection connection = null;
+		try{
+			connection = getConnection();
 			 
-			 UserMessageDao messageDao = new UserMessageDao();
-			 List<UserMessage> ret = messageDao.getUserMessages(connection, LIMIT_NUM);
+			UserMessageDao messageDao = new UserMessageDao();
+			List<UserMessage> ret = messageDao.getUserMessages(connection, LIMIT_NUM);
 			 
-			 commit(connection);
+			commit(connection);
 			 
-			 return ret;
-		 }catch(RuntimeException e){
-			 rollback(connection);
-			 throw e;
-		 }catch(Error e){
-			 rollback(connection);
-			 throw e;
-		 }finally{
-			 close(connection);
-		 }
-	 }
-
+			return ret;
+		}catch(RuntimeException e){
+			rollback(connection);
+			throw e;
+		}catch(Error e){
+			rollback(connection);
+			throw e;
+		}finally{
+			close(connection);
+		}
+	}
+	 
+	//投稿削除用のメソッド
+	public void delete(int id, int user_id){
+		 
+		Connection connection = null;
+		try{
+			connection = getConnection();
+			 
+			PostDao postDao = new PostDao();
+			postDao.delete(connection, id, user_id);
+			 
+			commit(connection);
+		}catch(RuntimeException e){
+			rollback(connection);
+			throw e;
+		}catch(Error e){
+			rollback(connection);
+			throw e;
+		}finally{
+			close(connection);
+		}
+	}
+	
+	//投稿に対するコメントの削除用のメソッド
+	public void commentDelete(int id){
+			 
+		Connection connection = null;
+		try{
+			connection = getConnection();
+				 
+			PostDao postDao = new PostDao();
+			postDao.commentDelete(connection, id);
+				 
+			commit(connection);
+		}catch(RuntimeException e){
+			rollback(connection);
+			throw e;
+		}catch(Error e){
+			rollback(connection);
+			throw e;
+		}finally{
+			close(connection);
+		}
+	}
 }
