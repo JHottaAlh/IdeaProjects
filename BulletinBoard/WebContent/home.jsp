@@ -43,9 +43,10 @@ function commentDisp(){
 </head>
 <body>
 <div class = "header">	
-	<a href = "./">ホーム</a>
+	<c:if test = "${ loginUser.department_id == 0 }">
 	<a href = "UserControlServlet">ユーザー管理</a>
-	<a href = "LogoutServlet">ログアウト</a>		<%-- 未実装。一旦ホームに戻るように組んである --%>
+	</c:if>
+	<a href = "LogoutServlet">ログアウト</a>
 </div>
 <%-- ログインしている場合にプロフィールを表示 --%>
 <div class = "profile">	
@@ -60,6 +61,32 @@ function commentDisp(){
 <div class = "menu">
 	<a href = "NewPostServlet">新規投稿</a>
 </div>
+<%-- 記事のソートをするブロック --%>
+<div class = "postSort">
+<%-- エラーメッセージ --%>
+<c:if test = "${ not empty errorMessages }">
+	<div class = "errorMessages">
+		<ul>
+			<c:forEach items = "${ errorMessages }" var = "message">
+				<li><c:out value = "${ message }"/>
+			</c:forEach>
+		</ul>
+	</div>
+	<%-- セッションスコープからエラーメッセージ文を破棄 --%>
+	<c:remove var = "errorMessages" scope = "session"/>
+</c:if>
+	<form action = "home" method = "get">
+	<select id = "category" name = "category">
+		<option value = "">未選択</option>
+		<option value = "支店情報">支店情報</option>
+		<option value = "本部情報">本部情報</option>
+		<option value = "共通">共通</option>
+	</select>
+	<input type ="date" id = "oldDate" name = "oldDate" value = "">
+	<input type ="date" id = "latestDate" name = "latestDate" value = "">
+	<input type = "submit" value = "絞込">
+	</form>
+</div>
 <%-- forEachとかで取得した記事の数だけ表示をループさせる(実装途中) --%>
 <div class = "main">
 	<c:forEach items = "${ messages }" var = "message">
@@ -71,7 +98,10 @@ function commentDisp(){
 			<div class = "date"><fmt:formatDate value = "${ message.timed_at }" pattern = "yyyy/MM/dd/ HH:mm:ss"/></div>
 			
 			<%-- 情報セキュリティ部または投稿主のみ投稿を削除できるようif文を追加 --%>
-			<c:if test = "${ loginUser.department_id == 1 || loginUser.id == message.user_id }">
+			<%-- 社員が投稿した場合その店舗の支店長は投稿削除できるようにもする --%>
+			<c:if test = "${ (loginUser.department_id == 1 || loginUser.id == message.user_id) ||
+			(message.branch_id == loginUser.branch_id && loginUser.department_id == 2) }">
+			<%-- 支店長が配下の社員の記事を削除できるようにする --%>
 			<form action = "home" method = "post">
 				<input type = "hidden" name = "id" id = "id" value = "${ message.id }"/>
 				<input type = "hidden" name = "user_id" id = "user_id" value = "${ message.user_id }"/>
@@ -87,6 +117,7 @@ function commentDisp(){
 					<div class = "timed_at"><c:out value = "${ comment.timed_at }"/></div>
 					<div class = "text"><c:out value = "${ comment.text }"/></div><br/>
 					<%-- コメントの削除機能 --%>
+					<%-- 管理者または投稿者は削除できる --%>
 					<c:if test = "${ loginUser.department_id == 1 || loginUser.id == comment.user_id }">
 					<form action = "CommentDelete" method = "post">
 						<input type = "hidden" name = "id" id = "id" value = "${ comment.id }"/>

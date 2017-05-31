@@ -7,6 +7,24 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type = "text/javascript">
+<!--
+//ユーザー削除時の確認ダイアログ(post)
+function userDisp(){
+
+	// 「OK」時の処理開始 ＋ 確認ダイアログの表示
+	if(window.confirm('ユーザーを削除します')){
+
+		location.href = "userDelete";
+		return true;
+
+	}
+	// 「OK」時の処理終了
+	return false;
+
+}
+-->
+</script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -27,8 +45,8 @@
 		<c:out value = ""/>
 	</div>
 	<div class = "editor">
-		<form action = "UserEditSendServlet" method = "post">
 		<c:forEach items = "${ personalData }" var = "data">
+		<form action = "UserEditSendServlet" method = "post">
 			<input type = "hidden" name = "id" value = "${ data.id }"/>
 			ログインID : <input type = "text" id = "login_id" name = "login_id" value = "${ data.login_id }"><br/>
 			<br/>
@@ -42,24 +60,53 @@
 			<br/>
 			支店 :
 			<select id = "branch_id" name = "branch_id">
-				<option value = "0">本社</option>
-				<option value = "1">支店A</option>
-				<option value = "2">支店B</option>
-				<option value = "3">支店C</option>
+				<option value = "0" 
+				<c:if test = "${ data.branch_id == 0 }">
+				selected
+				</c:if>>本社</option>
+				<option value = "1" 
+				<c:if test = "${ data.branch_id == 1 }">
+				selected
+				</c:if>>支店A</option>
+				<option value = "2" 
+				<c:if test = "${ data.branch_id == 2 }">
+				selected
+				</c:if>>支店B</option>
+				<option value = "3" 
+				<c:if test = "${ data.branch_id == 3 }">
+				selected
+				</c:if>>支店C</option>
 			</select>
 			<br/>
 			<br/>
 			部署・役職 :
 			<select id = "department_id" name = "department_id">
-				<option value = "0">人事総務部</option>
-				<option value = "1">情報セキュリティ部</option>
-				<option value = "2">店長</option>
-				<option value = "3">社員</option>
+				<option value = "0" 
+				<c:if test = "${ data.department_id == 0 }">
+				selected
+				</c:if>>人事総務部</option>
+				<option value = "1" 
+				<c:if test = "${ data.department_id == 1 }">
+				selected
+				</c:if>>情報セキュリティ部</option>
+				<option value = "2" 
+				<c:if test = "${ data.department_id == 2 }">
+				selected
+				</c:if>>店長</option>
+				<option value = "3" 
+				<c:if test = "${ data.department_id == 3 }">
+				selected
+				</c:if>>社員</option>
 			</select>
 			<br/>	
-			<input type = "submit" value = "登録">
-		</c:forEach>
+			<input type = "submit" value = "登録"><br/>
+			<br/>
 		</form>
+		<form action = "userDelete" method = "post">
+			<input type = "hidden" id = "id" name = "id" value = "${ data.id }">
+			<input type = "submit" value = "削除" onClick = "return userDisp()"/>
+			</form>
+		</c:forEach>
 	</div>
 </div>
 

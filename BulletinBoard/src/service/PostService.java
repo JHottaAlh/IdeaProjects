@@ -107,4 +107,72 @@ public class PostService {
 			close(connection);
 		}
 	}
+	
+	//記事をソートするためのメソッド(日付のみ)
+	public List<UserMessage> postSortDate(String oldDate, String latestDate){
+		Connection connection = null;
+		try{
+			connection = getConnection();
+					 
+			PostDao postDao = new PostDao();
+			List<UserMessage> ret = postDao.postSortDate(connection, oldDate, latestDate);
+					 
+			commit(connection);
+				
+			return ret;
+		}catch(RuntimeException e){
+			rollback(connection);
+			throw e;
+		}catch(Error e){
+			rollback(connection);
+			throw e;
+		}finally{
+			close(connection);
+		}
+	}
+	
+	//記事をソートするためのメソッド
+	public List<UserMessage> postSort(String category, String oldDate, String latestDate){
+		Connection connection = null;
+		try{
+			connection = getConnection();
+						 
+			PostDao postDao = new PostDao();
+			List<UserMessage> ret = postDao.postSort(connection, category, oldDate, latestDate);
+						 
+			commit(connection);
+					
+			return ret;
+		}catch(RuntimeException e){
+			rollback(connection);
+			throw e;
+		}catch(Error e){
+			rollback(connection);
+			throw e;
+		}finally{
+			close(connection);
+		}
+	}
+	//一番古い投稿日時を取得
+	public UserMessage oldDate(){
+		Connection connection = null;
+		try{
+			connection = getConnection();
+		
+			PostDao postDao = new PostDao();
+			UserMessage oldDate = postDao.oldDate(connection);
+		
+			commit(connection);
+			
+			return oldDate;
+		}catch(RuntimeException e){
+			rollback(connection);
+			throw e;
+		}catch(Error e){
+			rollback(connection);
+			throw e;
+		}finally{
+			close(connection);
+		}
+	}
 }

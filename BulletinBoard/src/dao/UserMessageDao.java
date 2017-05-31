@@ -49,6 +49,8 @@ public class UserMessageDao {
 				Timestamp timed_at = rs.getTimestamp("timed_at");
 				Timestamp updated_at = rs.getTimestamp("updated_at");
 				String name = rs.getString("name");
+				int branch_id = rs.getInt("branch_id");
+				int department_id = rs.getInt("department_id");
 				
 				UserMessage message = new UserMessage();
 				message.setId(id);
@@ -59,6 +61,8 @@ public class UserMessageDao {
 				message.setTimed_at(timed_at);
 				message.setUpdated_at(updated_at);
 				message.setName(name);
+				message.setBranch_id(branch_id);
+				message.setDepartment_id(department_id);
 				
 				ret.add(message);
 			}

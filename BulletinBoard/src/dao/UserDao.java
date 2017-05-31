@@ -245,5 +245,24 @@ public class UserDao {
 			close(ps);
 		}
 	}
-
+	
+	//ユーザー削除メソッド
+	public void userDelete(Connection connection, int id){
+		
+		PreparedStatement ps = null;
+		try{
+			StringBuilder sql = new StringBuilder();
+			sql.append("DELETE FROM users WHERE id = ?");
+				
+			ps = connection.prepareStatement(sql.toString());
+				
+			ps.setInt(1, id);
+			
+			ps.executeUpdate();
+		}catch(SQLException e){
+			throw new SQLRuntimeException(e);
+		}finally{
+			close(ps);
+		}
+	}
 }

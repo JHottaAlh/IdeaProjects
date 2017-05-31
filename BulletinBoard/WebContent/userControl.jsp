@@ -44,6 +44,7 @@ function disp(){
  			<td><c:out value = "${ data.login_id }"/></td>
  			<td><c:out value = "${ data.name }"/></td>
  			<td>
+ 			<c:if test = "${ loginUser.id != data.id }">
  				<form action = "IsStoppedServlet" method = "post">
  					<c:if test = "${ data.is_stopped == 0 }">
  						<input type = "hidden" name = "id" id = "id" value = "${ data.id }"/>
@@ -56,12 +57,15 @@ function disp(){
  						<input type = "submit" value = "復活" onClick = "return disp()"/>
  					</c:if>
  				</form>
+ 			</c:if>
  			</td> 			
  			<td>
+ 			<c:if test = "${ loginUser.id != data.id }">
  				<form action = "UserEdit" method = "post">			
  				<input type = "hidden" name = "id" id = "id" value = "${ data.id }"/>
  				<input type = "submit" value = "編集"/>
  				</form>
+ 			</c:if>
  			</td>
  		</tr> 
  	</c:forEach> 
