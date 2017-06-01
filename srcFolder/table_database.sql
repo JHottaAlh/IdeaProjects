@@ -2,7 +2,7 @@ CREATE TABLE users
 (
 	id			INT				PRIMARY KEY AUTO_INCREMENT
 	,login_id	VARCHAR(20)		UNIQUE NOT NULL
-	,password	VARCHAR(255)	NOT NULL
+	,passward	VARCHAR(255)	NOT NULL
 	,name		VARCHAR(10)		NOT NULL
 	,branch_id		INT			NOT NULL
 	,department_id	INT			NOT NULL
