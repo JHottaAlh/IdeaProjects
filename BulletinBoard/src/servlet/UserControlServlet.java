@@ -15,7 +15,7 @@ import service.UserControlService;
 /**
  * Servlet implementation class userControl
  */
-@WebServlet("/UserControlServlet")
+@WebServlet("/usercontrol")
 public class UserControlServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

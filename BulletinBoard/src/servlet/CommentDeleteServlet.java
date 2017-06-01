@@ -13,7 +13,7 @@ import service.CommentService;
 /**
  * Servlet implementation class CommentDeleteServlet
  */
-@WebServlet("/CommentDelete")
+@WebServlet("/commentdelete")
 public class CommentDeleteServlet extends HttpServlet { 
 	private static final long serialVersionUID = 1L;
        
@@ -27,7 +27,7 @@ public class CommentDeleteServlet extends HttpServlet {
 		CommentService commentService = new CommentService();
 		commentService.delete(id, user_id);
 			
-		response.sendRedirect("home");
+		response.sendRedirect("./");
 	}
 
 }

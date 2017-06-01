@@ -27,7 +27,7 @@ function disp(){
 </head>
 <body>
 <div class = "top-menu">
-<a href = "SignupServlet">ユーザー登録</a>
+<a href = "signup">ユーザー登録</a>
 <a href = "./">戻る</a>
 </div>
 
@@ -45,7 +45,7 @@ function disp(){
  			<td><c:out value = "${ data.name }"/></td>
  			<td>
  			<c:if test = "${ loginUser.id != data.id }">
- 				<form action = "IsStoppedServlet" method = "post">
+ 				<form action = "isstopped" method = "post">
  					<c:if test = "${ data.is_stopped == 0 }">
  						<input type = "hidden" name = "id" id = "id" value = "${ data.id }"/>
  						<input type = "hidden" name = "is_stopped" id = "is_stopped" value = "${ data.is_stopped }"/>
@@ -61,7 +61,7 @@ function disp(){
  			</td> 			
  			<td>
  			<c:if test = "${ loginUser.id != data.id }">
- 				<form action = "UserEdit" method = "post">			
+ 				<form action = "useredit" method = "post">			
  				<input type = "hidden" name = "id" id = "id" value = "${ data.id }"/>
  				<input type = "submit" value = "編集"/>
  				</form>

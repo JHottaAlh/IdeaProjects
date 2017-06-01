@@ -18,7 +18,7 @@ import service.LoginService;		//ログイン可能なID、パスワードかの�
 /**
  * Servlet implementation class Index
  */
-@WebServlet("/LoginServlet")
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

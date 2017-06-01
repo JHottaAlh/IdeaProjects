@@ -13,7 +13,7 @@ import service.UserService;
 /**
  * Servlet implementation class IsStoppedServlet
  */
-@WebServlet("/IsStoppedServlet")
+@WebServlet("/isstopped")
 public class IsStoppedServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -24,7 +24,7 @@ public class IsStoppedServlet extends HttpServlet {
 		int is_stopped = Integer.parseInt(request.getParameter("is_stopped"));
 		new UserService().isStopped(id, is_stopped);
 		
-		response.sendRedirect("UserControlServlet");
+		response.sendRedirect("usercontrol");
 	}
 
 }

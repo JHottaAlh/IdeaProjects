@@ -25,7 +25,7 @@
 </c:if>
 
 <%-- ログインID/パスワード入力フォーム --%>
-<form action = "LoginServlet" method = "post">		<%-- 未実装 --%>
+<form action = "login" method = "post">		<%-- 未実装 --%>
 	ログインID : <input type = "text" name = "login_id" id = "login_id"><br />
 	パスワード : <input type = "password" name = "password" id = "password"><br />
 	<input type = "submit" value = "ログイン"><br />

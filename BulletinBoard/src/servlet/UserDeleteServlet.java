@@ -13,7 +13,7 @@ import service.UserService;
 /**
  * Servlet implementation class UserDeleteServlet
  */
-@WebServlet("/userDelete")
+@WebServlet("/userdelete")
 public class UserDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -25,7 +25,7 @@ public class UserDeleteServlet extends HttpServlet {
 		UserService userService = new UserService();
 		userService.userDelete(id);
 		
-		response.sendRedirect("UserControlServlet");
+		response.sendRedirect("usercontrol");
 	}
 
 }

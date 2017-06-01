@@ -19,7 +19,7 @@ import service.PostService;
 /**
  * Servlet implementation class HomeServlet
  */
-@WebServlet("/home")
+@WebServlet(urlPatterns ={"/index.jsp"})
 public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -90,7 +90,7 @@ public class HomeServlet extends HttpServlet {
 		//記事を削除したときにその記事に対するコメントもDBから消す
 		postService.commentDelete(id);
 		
-		response.sendRedirect("home");
+		response.sendRedirect("index.jsp");
 		
 	}
 }

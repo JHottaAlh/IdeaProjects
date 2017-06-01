@@ -44,11 +44,13 @@ function userDisp(){
 	<div class = "title">
 		<c:out value = ""/>
 	</div>
-	<div class = "editor">
+	<div class = "form">
 		<c:forEach items = "${ personalData }" var = "data">
-		<form action = "UserEditSendServlet" method = "post">
+		<form action = "usereditsend" method = "post">
 			<input type = "hidden" name = "id" value = "${ data.id }"/>
 			ログインID : <input type = "text" id = "login_id" name = "login_id" value = "${ data.login_id }"><br/>
+			<br/>
+			ユーザー名 : <input type = "text" id = "name" name = "name" value = "${ data.name }"><br/>
 			<br/>
 			パスワード : <input type = "password" id = "password" name = "password"><br/>
 			<br/>
@@ -56,8 +58,6 @@ function userDisp(){
 			<br/>
 			<%-- 何も入力されなかったときのための暗号化された元のパスワードを送る --%>
 			<input type = "hidden" id = "password2" name = "password2" value = "${ data.password }">
-			ユーザー名 : <input type = "text" id = "name" name = "name" value = "${ data.name }"><br/>
-			<br/>
 			支店 :
 			<select id = "branch_id" name = "branch_id">
 				<option value = "0" 
@@ -102,12 +102,13 @@ function userDisp(){
 			<input type = "submit" value = "登録"><br/>
 			<br/>
 		</form>
-		<form action = "userDelete" method = "post">
+		<form action = "userdelete" method = "post">
 			<input type = "hidden" id = "id" name = "id" value = "${ data.id }">
 			<input type = "submit" value = "削除" onClick = "return userDisp()"/>
 			</form>
 		</c:forEach>
 	</div>
+	<a href ="usercontrol">戻る</a>
 </div>
 
 </body>

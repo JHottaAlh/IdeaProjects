@@ -15,7 +15,7 @@ import service.UserControlService;
 /**
  * Servlet implementation class UserEditServlet
  */
-@WebServlet("/UserEdit")
+@WebServlet("/useredit")
 public class UserEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

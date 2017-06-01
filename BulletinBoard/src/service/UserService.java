@@ -77,7 +77,6 @@ public class UserService {
 			
 			commit(connection);
 			
-			
 			//未登録のユーザーIDであれば通す
 			if(user == 0){
 				return true;

@@ -23,7 +23,7 @@
 	<c:remove var = "errorMessages" scope = "session"/>
 </c:if>
 <div class = "Post">
-	<form action = "NewPostServlet" method = "post">
+	<form action = "newpost" method = "post">
 	<div class = "title">
 		件名 : <br/>
 		<input type = "text" name = "title" id = "title"><br/>

@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 import model.User;
 import service.LoginService;
 
-@WebFilter("/*")
+@WebFilter(filterName="LoginAccessFilter", urlPatterns="/*")
 public class LoginAccessFilter implements Filter {
 	public void init(FilterConfig config){
 		
@@ -48,7 +48,7 @@ public class LoginAccessFilter implements Filter {
 				List<String> messages = new ArrayList<String>();
 				messages.add("該当するアカウントは管理者によって停止されています");
 				session.setAttribute("errorMessages", messages);
-				req.getRequestDispatcher("LoginServlet").forward(request, response);
+				req.getRequestDispatcher("login").forward(request, response);
 				session.invalidate();//セッションの無効化
 				return;
 			}else{
@@ -57,7 +57,7 @@ public class LoginAccessFilter implements Filter {
 			}
 		//そもそもログイン状態じゃなかったらログイン画面にGo(エラーなし)
 		}else{
-			req.getRequestDispatcher("LoginServlet").forward(request, response);
+			req.getRequestDispatcher("login").forward(request, response);
 			return;
 		}
 	}

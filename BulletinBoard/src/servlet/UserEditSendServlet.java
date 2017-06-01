@@ -20,7 +20,7 @@ import service.UserControlService;
 import service.UserService;
 import utils.CipherUtil;
 
-@WebServlet("/UserEditSendServlet")
+@WebServlet("/usereditsend")
 public class UserEditSendServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -52,7 +52,7 @@ public class UserEditSendServlet extends HttpServlet {
 			//UserService型のupdateメソッドを実行
 			new UserService().update(editUser);
 		
-			response.sendRedirect("UserControlServlet");
+			response.sendRedirect("usercontrol");
 		}else{
 			session.setAttribute("errorMessages", messages);
 			List<UserControl> personalData = 
@@ -68,20 +68,30 @@ public class UserEditSendServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String password1 = request.getParameter("password1");
 		String name = request.getParameter("name");
+		int branch_id = Integer.parseInt(request.getParameter("branch_id"));
+		int department_id = Integer.parseInt(request.getParameter("department_id"));
 		boolean idCheck = new UserService().idCheck(login_id, id);
 		
 		if(!idCheck){
 			messages.add("ログインIDが重複しています");
 		}
-		
-		if(!login_id.matches("[a-zA-Z0-9]+")){
-			messages.add("ログインIDは半角英数字で入力してください");
-		}
-		if(StringUtils.isEmpty(login_id) == true){
+		if(login_id.isEmpty()){
 			messages.add("ログインIDを入力してください");
+		}else{
+			if(!login_id.matches("[a-zA-Z0-9]+")){
+				messages.add("ログインIDは半角英数字で入力してください");
+			}
+			if(6 > login_id.length() || 20 < login_id.length()){
+				messages.add("ログインIDは6文字以上20文字以下で入力してください");
+			}
 		}
-		if(6 > login_id.length() || 20 < login_id.length()){
-			messages.add("ログインIDは6文字以上20文字以下で入力してください");
+		
+		if(name.isEmpty()){
+			messages.add("ユーザー名を入力してください");
+		}else{
+			if(10 < name.length()){
+				messages.add("ユーザー名は10文字以下で入力してください");
+			}
 		}
 		
 		if(password.length() != 0 && password != password1){
@@ -91,12 +101,14 @@ public class UserEditSendServlet extends HttpServlet {
 			messages.add("パスワードは6文字以上255文字以下で入力してください");
 		}
 		
-		if(StringUtils.isEmpty(name) == true){
-			messages.add("ユーザー名を入力してください");
+		if(branch_id == 0 && (department_id != 0 && department_id != 1)){
+			messages.add("支店と部署・役職が不正の組み合わせです");
 		}
-		if(10 < name.length()){
-			messages.add("ユーザー名は10文字以下で入力してください");
+		if(branch_id != 0 && (department_id ==0 || department_id == 1)){
+			messages.add("支店と部署・役職が不正の組み合わせです");
 		}
+		
+		
 		if(messages.size() == 0){
 			return true;
 		}else{

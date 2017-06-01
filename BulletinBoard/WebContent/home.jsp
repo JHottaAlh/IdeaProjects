@@ -44,10 +44,22 @@ function commentDisp(){
 <body>
 <div class = "header">	
 	<c:if test = "${ loginUser.department_id == 0 }">
-	<a href = "UserControlServlet">ユーザー管理</a>
+	<a href = "usercontrol">ユーザー管理</a>
 	</c:if>
-	<a href = "LogoutServlet">ログアウト</a>
+	<a href = "logout">ログアウト</a>
 </div>
+<%-- エラーメッセージ --%>
+<c:if test = "${ not empty errorMessages }">
+	<div class = "errorMessages">
+		<ul>
+			<c:forEach items = "${ errorMessages }" var = "message">
+				<li><c:out value = "${ message }"/>
+			</c:forEach>
+		</ul>
+	</div>
+	<%-- セッションスコープからエラーメッセージ文を破棄 --%>
+	<c:remove var = "errorMessages" scope = "session"/>
+</c:if>
 <%-- ログインしている場合にプロフィールを表示 --%>
 <div class = "profile">	
 	<div class = "name"><h2><c:out value = "こんにちは、${ loginUser.name }さん"/></h2></div>
@@ -59,7 +71,7 @@ function commentDisp(){
 	
 <%-- 新規投稿へのリンク --%>
 <div class = "menu">
-	<a href = "NewPostServlet">新規投稿</a>
+	<a href = "newpost">新規投稿</a>
 </div>
 <%-- 記事のソートをするブロック --%>
 <div class = "postSort">
@@ -75,7 +87,7 @@ function commentDisp(){
 	<%-- セッションスコープからエラーメッセージ文を破棄 --%>
 	<c:remove var = "errorMessages" scope = "session"/>
 </c:if>
-	<form action = "home" method = "get">
+	<form action = "index.jsp" method = "get">
 	<select id = "category" name = "category">
 		<option value = "">未選択</option>
 		<option value = "支店情報">支店情報</option>
@@ -102,7 +114,7 @@ function commentDisp(){
 			<c:if test = "${ (loginUser.department_id == 1 || loginUser.id == message.user_id) ||
 			(message.branch_id == loginUser.branch_id && loginUser.department_id == 2) }">
 			<%-- 支店長が配下の社員の記事を削除できるようにする --%>
-			<form action = "home" method = "post">
+			<form action = "index.jsp" method = "post">
 				<input type = "hidden" name = "id" id = "id" value = "${ message.id }"/>
 				<input type = "hidden" name = "user_id" id = "user_id" value = "${ message.user_id }"/>
 				<input type = "submit" value = "削除" onClick = "return postDisp()"/>
@@ -119,7 +131,7 @@ function commentDisp(){
 					<%-- コメントの削除機能 --%>
 					<%-- 管理者または投稿者は削除できる --%>
 					<c:if test = "${ loginUser.department_id == 1 || loginUser.id == comment.user_id }">
-					<form action = "CommentDelete" method = "post">
+					<form action = "commentdelete" method = "post">
 						<input type = "hidden" name = "id" id = "id" value = "${ comment.id }"/>
 						<input type = "hidden" name = "user_id" id = "user_id" value = "${ comment.user_id }"/>
 						<input type = "submit" value = "削除" onClick = "return commentDisp()"/>

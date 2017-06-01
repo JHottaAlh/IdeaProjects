@@ -13,14 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang.StringUtils;
-
 import model.User;
 import service.UserService;
 /**
  * Servlet implementation class Signup
  */
-@WebServlet("/SignupServlet")
+@WebServlet("/signup")
 public class SignupServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -35,7 +33,7 @@ public class SignupServlet extends HttpServlet {
 		List<String> messages = new ArrayList<String>();
 
 		HttpSession session = request.getSession();
-		if (isValid(request, messages) == true){
+		if (isValid(request, messages)){
 			//User(Beans)クラスのuserインスタンスを宣言
 			User user = new User();
 			user.setLogin_id(request.getParameter("login_id"));
@@ -48,7 +46,7 @@ public class SignupServlet extends HttpServlet {
 			new UserService().register(user);
 
 			//一連の処理を終えたらhome.jspに移動
-			response.sendRedirect("./");
+			response.sendRedirect("usercontrol");
 		}else{
 			session.setAttribute("errorMessages", messages);
 			response.sendRedirect("signup.jsp");
@@ -58,7 +56,10 @@ public class SignupServlet extends HttpServlet {
 	private boolean isValid(HttpServletRequest request, List<String>messages){
 		String login_id = request.getParameter("login_id");
 		String password = request.getParameter("password");
+		String password1 = request.getParameter("password1");
 		String name = request.getParameter("name");
+		int branch_id = Integer.parseInt(request.getParameter("branch_id"));
+		int department_id = Integer.parseInt(request.getParameter("department_id"));
 		//初回登録時はプライマリキーがないので0を初期値とする
 		boolean idCheck = new UserService().idCheck(login_id, 0);
 		
@@ -66,26 +67,47 @@ public class SignupServlet extends HttpServlet {
 			messages.add("ログインIDが重複しています");
 		}
 		
-		if(!login_id.matches("[a-zA-Z0-9]+")){
-			messages.add("ログインIDは半角英数字で入力してください");
-		}
-		if(StringUtils.isEmpty(login_id) == true){
+		if(login_id.isEmpty()){
 			messages.add("ログインIDを入力してください");
-		}
-		if(6 > login_id.length() || 20 < login_id.length()){
+		}else if(!login_id.matches("[a-zA-Z0-9]+")){
+			messages.add("ログインIDは半角英数字で入力してください");
+		}else if(6 > login_id.length() || 20 < login_id.length()){
 			messages.add("ログインIDは6文字以上20文字以下で入力してください");
 		}
 		
-		if(password.length() != 0 && (6 > password.length() || 255 < password.length())){
-			messages.add("パスワードは6文字以上255文字以下で入力してください");
+		if(name.isEmpty()){
+			messages.add("ユーザー名を入力してください");
+		}else{
+			if(10 < name.length()){
+				messages.add("ユーザー名は10文字以下で入力してください");
+			}
 		}
 		
-		if(StringUtils.isEmpty(name) == true){
-			messages.add("ユーザー名を入力してください");
+		if(password.isEmpty() && password1.isEmpty()){
+			messages.add("パスワードを入力してください");
+		}else{
+			if(!password.equals(password1)){
+				messages.add("パスワードが一致しません");
+			}
+			if(password.length() != 0 && (6 > password.length() || 255 < password.length())){
+				messages.add("パスワードは6文字以上255文字以下で入力してください");
+			}
 		}
-		if(10 < name.length()){
-			messages.add("ユーザー名は10文字以下で入力してください");
+		if(branch_id == 999){
+			messages.add("支店を選択してください");
 		}
+		if(department_id == 999){
+			messages.add("部署・役職を選択してください");
+		}
+		
+		if(branch_id == 0 && (department_id != 0 && department_id != 1)){
+			messages.add("支店と部署・役職が不正の組み合わせです");
+		}
+		if(branch_id != 0 && (department_id ==0 || department_id == 1)){
+			messages.add("支店と部署・役職が不正の組み合わせです");
+		}
+		
+		
 		if(messages.size() == 0){
 			return true;
 		}else{

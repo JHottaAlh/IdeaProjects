@@ -33,7 +33,7 @@ public class CommentServlet extends HttpServlet {
 		CommentService commentService = new CommentService();
 		commentService.register(comment);
 		
-		response.sendRedirect("home");
+		response.sendRedirect("./");
 		
 	}
 

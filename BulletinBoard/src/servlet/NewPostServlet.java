@@ -18,7 +18,7 @@ import model.User;
 import service.PostService;
 
 
-@WebServlet("/NewPostServlet")
+@WebServlet("/newpost")
 public class NewPostServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
