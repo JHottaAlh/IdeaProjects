@@ -22,37 +22,40 @@ import service.CommentService;
 @WebServlet("/comment")
 public class CommentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		List<String> messages = new ArrayList<String>();
 		HttpSession session = request.getSession();
 		if (isValid(request, messages) == true){
-		
+
 			int user_id = Integer.parseInt(request.getParameter("user_id"));
 			int post_id = Integer.parseInt(request.getParameter("post_id"));
 			String text = request.getParameter("text");
-		
+
 			Comment comment = new Comment();
 			comment.setUser_id(user_id);
 			comment.setPost_id(post_id);
 			comment.setText(text);
-		
+
 			CommentService commentService = new CommentService();
 			commentService.register(comment);
-		
+
 			response.sendRedirect("./");
 		}else{
 			//コメントが未入力、文字数に不正があったとき記入情報を保持して再入力できるようにする(途中)
-			Comment comment = new Comment();
-			comment.setPost_id(Integer.parseInt(request.getParameter("post_id")));
-			comment.setText(request.getParameter("text"));
-			
-			request.setAttribute("text", comment);
+			//Comment comment = new Comment();
+			//comment.setPost_id(Integer.parseInt(request.getParameter("post_id")));
+			//comment.setText(request.getParameter("text"));
+
+			//request.setAttribute("text", comment);
+
+			session.setAttribute("errorMessages", messages);
+			request.getRequestDispatcher("./").forward(request, response);
 		}
 	}
-	
+
 	private boolean isValid(HttpServletRequest request, List<String>messages){
 		String text = request.getParameter("text");
 

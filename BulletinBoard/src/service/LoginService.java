@@ -16,12 +16,12 @@ public class LoginService {
 		try{
 			//データベースのコネクション（パスのようなもの）を取得
 			connection = getConnection();
-			
+
 			UserDao userDao = new UserDao();
 			//受け取ったパスワードを暗号化
 			String encPassword = CipherUtil.encrypt(password);
 			User user = userDao.getUser(connection, login_id, encPassword);
-			
+
 			commit(connection);
 			return user;
 		}catch(RuntimeException e){
@@ -34,17 +34,17 @@ public class LoginService {
 			close(connection);
 		}
 	}
-	
+
 	//Filter用(パスワードを暗号化しないため上のメソッドと区別)
 	public User filter(String login_id, String password){
 		Connection connection = null;
 		try{
 			//データベースのコネクション（パスのようなもの）を取得
 			connection = getConnection();
-			
+
 			UserDao userDao = new UserDao();
 			User user = userDao.getUser(connection, login_id, password);
-			
+
 			commit(connection);
 			return user;
 		}catch(RuntimeException e){
