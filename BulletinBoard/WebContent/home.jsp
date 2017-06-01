@@ -144,7 +144,7 @@ function commentDisp(){
 			<form action = "comment" method = "post">
 				<input type = "hidden" name = "user_id" id = "user_id" value = "${ loginUser.id }"/>
 				<input type = "hidden" id = "post_id" name = "post_id" value = "${ message.id }"/>
-				<textarea name = "text" id = "text" rows="4" cols="60">コメント記入欄。</textarea><br/>
+				<textarea name = "text" id = "text" rows="4" cols="60">           </textarea><br/>
 				<input type = "submit" value = "コメント"/>
 			</form>
 			---------------------------------------------------------------------------------------------

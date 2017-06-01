@@ -33,7 +33,7 @@ public class NewPostServlet extends HttpServlet {
 		List<String> messages = new ArrayList<String>();
 		
 		HttpSession session = request.getSession();
-		if (isValid(request, messages) == true){
+		if (isValid(request, messages)){
 			
 			User user = (User) session.getAttribute("loginUser");
 			//Post(Beans)クラスのpostインスタンスを宣言
@@ -59,16 +59,16 @@ public class NewPostServlet extends HttpServlet {
 		String text = request.getParameter("text");
 
 		if(StringUtils.isEmpty(title) == true){
-			messages.add("件名を入力してください");
+			messages.add("件名が未入力です");
 		}
 		if(50 < title.length()){
-			messages.add("件名は50文字以下で入力してください");
+			messages.add("件名は50文字以内で入力してください");
 		}
 		if(StringUtils.isEmpty(text) == true){
-			messages.add("本文を入力してください");
+			messages.add("本文が未入力です");
 		}
 		if(1000 < text.length()){
-			messages.add("本文は1000文字以下で入力してください");
+			messages.add("本文は1000文字以内で入力してください");
 		}
 		if(messages.size() == 0){
 			return true;
