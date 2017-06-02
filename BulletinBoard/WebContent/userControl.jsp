@@ -34,7 +34,7 @@ function disp(){
 <div class = "member-list">
 	<table border="1">
 	<tr>
-	<td>ログインID</td> <td>氏名</td> <td>状態</td> <td>編集</td>
+	<td>ログインID</td> <td>ユーザー名</td> <td>支店</td> <td>部署・役職</td> <td>状態</td> <td>編集</td>
 	</tr>
 	
 	<%-- 登録された社員の数だけリストを表示する(未実装) --%>
@@ -43,6 +43,8 @@ function disp(){
  		<tr>
  			<td><c:out value = "${ data.login_id }"/></td>
  			<td><c:out value = "${ data.name }"/></td>
+ 			<td><c:out value = "${ data.branch_name }"/></td>
+ 			<td><c:out value = "${ data.department_name }"/></td>
  			<td>
  			<c:if test = "${ loginUser.id != data.id }">
  				<form action = "isstopped" method = "post">

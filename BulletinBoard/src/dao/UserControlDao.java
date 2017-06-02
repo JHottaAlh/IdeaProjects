@@ -78,6 +78,8 @@ public class UserControlDao {
 				String password = rs.getString("password");
 				int branch_id = rs.getInt("branch_id");
 				int department_id = rs.getInt("department_id");
+				String branch_name = rs.getString("branch_name");
+				String department_name = rs.getString("department_name");
 				
 				//ローカル変数をuserData(Beans)にセット
 				UserControl userData = new UserControl();
@@ -88,6 +90,8 @@ public class UserControlDao {
 				userData.setPassword(password);
 				userData.setBranch_id(branch_id);
 				userData.setDepartment_id(department_id);
+				userData.setBranch_name(branch_name);
+				userData.setDepartment_name(department_name);
 				
 				//retにBeansの情報を格納して戻り値として戻す
 				ret.add(userData);

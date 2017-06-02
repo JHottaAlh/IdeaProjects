@@ -14,6 +14,8 @@ public class UserControl implements Serializable {
 	private String password;
 	private int branch_id;
 	private int department_id;
+	private String branch_name;
+	private String department_name;
 	
 	public int getId() {return id;}
 	public void setId(int id) {this.id = id;}
@@ -35,5 +37,11 @@ public class UserControl implements Serializable {
 	
 	public int getDepartment_id() {return department_id;}
 	public void setDepartment_id(int department_id) {this.department_id = department_id;}
+	
+	public String getBranch_name() {return branch_name;}
+	public void setBranch_name(String branch_name) {this.branch_name = branch_name;}
+	
+	public String getDepartment_name() {return department_name;}
+	public void setDepartment_name(String department_name) {this.department_name = department_name;}
 	
 }
