@@ -52,28 +52,36 @@ public class HomeServlet extends HttpServlet {
 				latestDate += " 23:59:59";
 			}
 			
-			/*
-			 * 日付文字列を記号なしの文字列に変換(未実装)
-			 * SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-			Date formatDate = sdf.parse(oldDate);
-			 */
-			
-			
-		
-			//カテゴリーが選択された場合
-			if(!category.isEmpty()){
-				List<UserMessage> sortMessages = new PostService().postSort(category, oldDate, latestDate);
-				request.setAttribute("messages", sortMessages);
-			
-			//カテゴリー選択が無く、日付のみのソート
-			}else if(category.isEmpty()){
-				List<UserMessage> sortMessages = new PostService().postSortDate(oldDate, latestDate);
-				request.setAttribute("messages", sortMessages);
+			int ret = oldDate.compareTo(latestDate);
+			if(ret > 0){
+				//カテゴリーが選択された場合
+				if(!category.isEmpty()){
+					List<UserMessage> sortMessages = new PostService().postSort(category, latestDate, oldDate);
+					request.setAttribute("messages", sortMessages);
+				
+				//カテゴリー選択が無く、日付のみのソート
+				}else if(category.isEmpty()){
+					List<UserMessage> sortMessages = new PostService().postSortDate(latestDate, oldDate);
+					request.setAttribute("messages", sortMessages);
+				}
+				
+			}else{
+				//カテゴリーが選択された場合
+				if(!category.isEmpty()){
+					List<UserMessage> sortMessages = new PostService().postSort(category, oldDate, latestDate);
+					request.setAttribute("messages", sortMessages);
+				
+				//カテゴリー選択が無く、日付のみのソート
+				}else if(category.isEmpty()){
+					List<UserMessage> sortMessages = new PostService().postSortDate(oldDate, latestDate);
+					request.setAttribute("messages", sortMessages);
+				}
 			}
 		}
 		//コメントの一覧を取得
 		List<Comment> comments = new CommentService().getComment();
 		request.setAttribute("comments", comments);
+		
 		
 		request.getRequestDispatcher("/home.jsp").forward(request, response);
 		

@@ -26,7 +26,7 @@
 	<form action = "newpost" method = "post">
 	<div class = "title">
 		件名 : <br/>
-		<input type = "text" name = "title" id = "title"><br/>
+		<input type = "text" name = "title" id = "title" value = "${ contents.get(0) }"/><br/>
 		<br/>
 	</div>
 	<div class = "category">
@@ -40,7 +40,7 @@
 	</div>
 	<div class = "text">
 		本文 : <br/>
-		<textarea name="text" rows = "8" cols="50" id = "text"></textarea><br/>
+		<textarea name="text" rows = "8" cols="50" id = "text"><c:out value = "${ contents.get(1) }"/></textarea><br/>
 		<br/>
 	</div>
 	<input type = "submit" value = "投稿"><br/>

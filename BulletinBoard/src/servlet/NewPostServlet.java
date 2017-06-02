@@ -31,16 +31,17 @@ public class NewPostServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		List<String> messages = new ArrayList<String>();
+		Post post = new Post();
+		post.setTitle(request.getParameter("title"));
+		post.setCategory(request.getParameter("category"));
+		post.setText(request.getParameter("text"));	
 		
 		HttpSession session = request.getSession();
 		if (isValid(request, messages)){
 			
 			User user = (User) session.getAttribute("loginUser");
 			//Post(Beans)クラスのpostインスタンスを宣言
-			Post post = new Post();
-			post.setTitle(request.getParameter("title"));
-			post.setCategory(request.getParameter("category"));
-			post.setText(request.getParameter("text"));	
+			
 			post.setUser_id(user.getId());
 			
 			//post(Beans)を引数にPostServiceクラスのregisterメソッドを実行
@@ -49,8 +50,13 @@ public class NewPostServlet extends HttpServlet {
 			//一連の処理を終えたらhome.jspに移動
 			response.sendRedirect("./");
 		}else{
+			List<String> contents = new ArrayList<String>();
+			contents.add(request.getParameter("title"));
+			contents.add(request.getParameter("text"));
+			contents.add(request.getParameter("category"));
+			request.setAttribute("contents", contents);
 			session.setAttribute("errorMessages", messages);
-			response.sendRedirect("newPost.jsp");
+			request.getRequestDispatcher("newPost.jsp").forward(request, response);
 		}
 	}
 	

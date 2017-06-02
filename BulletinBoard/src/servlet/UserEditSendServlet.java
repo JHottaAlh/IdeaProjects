@@ -23,6 +23,11 @@ import utils.CipherUtil;
 @WebServlet("/usereditsend")
 public class UserEditSendServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
+		response.sendRedirect("./");
+	}
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
@@ -58,7 +63,7 @@ public class UserEditSendServlet extends HttpServlet {
 			List<UserControl> personalData = 
 					new UserControlService().personalData(Integer.parseInt(request.getParameter("id")));
 			request.setAttribute("personalData", personalData);
-			request.getRequestDispatcher("userEdit.jsp").forward(request, response);
+			request.getRequestDispatcher("useredit").forward(request, response);
 		}
 		
 	}
@@ -94,17 +99,17 @@ public class UserEditSendServlet extends HttpServlet {
 			}
 		}
 		
-		if(password.length() != 0 && password != password1){
+		if(!password.equals(password1)){
 			messages.add("パスワードが一致しません");
 		}
 		if(password.length() != 0 && (6 > password.length() || 255 < password.length())){
 			messages.add("パスワードは6文字以上255文字以下で入力してください");
 		}
 		
-		if(branch_id == 0 && (department_id != 0 && department_id != 1)){
+		if(branch_id == 1 && (department_id != 1 && department_id != 2)){
 			messages.add("支店と部署・役職が不正の組み合わせです");
 		}
-		if(branch_id != 0 && (department_id ==0 || department_id == 1)){
+		if(branch_id != 1 && (department_id == 1 || department_id == 2)){
 			messages.add("支店と部署・役職が不正の組み合わせです");
 		}
 		

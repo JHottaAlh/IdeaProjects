@@ -13,7 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Branch;
+import model.Department;
 import model.User;
+import service.BranchService;
+import service.DepartmentService;
 import service.UserService;
 /**
  * Servlet implementation class Signup
@@ -25,6 +29,13 @@ public class SignupServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//支店リストと部署・役職リストを取得
+		List<Branch> branchList = new BranchService().getBranch();
+		request.setAttribute("branchList", branchList);
+		
+		List<Department> departmentList = new DepartmentService().getDepartment();
+		request.setAttribute("departmentList", departmentList);
+		
 		request.getRequestDispatcher("signup.jsp").forward(request, response);
 	}
 
@@ -49,7 +60,13 @@ public class SignupServlet extends HttpServlet {
 			response.sendRedirect("usercontrol");
 		}else{
 			session.setAttribute("errorMessages", messages);
-			response.sendRedirect("signup.jsp");
+			User signupInfo = new User();
+			signupInfo.setLogin_id(request.getParameter("login_id"));
+			signupInfo.setName(request.getParameter("name"));
+			signupInfo.setBranch_id(Integer.parseInt(request.getParameter("branch_id")));
+			signupInfo.setDepartment_id(Integer.parseInt(request.getParameter("department_id")));
+			session.setAttribute("info", signupInfo);
+			response.sendRedirect("signup");
 		}
 	}
 
@@ -100,10 +117,10 @@ public class SignupServlet extends HttpServlet {
 			messages.add("部署・役職を選択してください");
 		}
 		
-		if(branch_id == 0 && (department_id != 0 && department_id != 1)){
+		if(branch_id == 1 && (department_id != 1 && department_id != 2)){
 			messages.add("支店と部署・役職が不正の組み合わせです");
 		}
-		if(branch_id != 0 && (department_id ==0 || department_id == 1)){
+		if(branch_id != 1 && (department_id ==1 || department_id == 2)){
 			messages.add("支店と部署・役職が不正の組み合わせです");
 		}
 		

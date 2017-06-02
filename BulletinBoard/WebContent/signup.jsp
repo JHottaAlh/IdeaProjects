@@ -29,9 +29,9 @@
 	</div>
 	<div class = "form">
 		<form action = "signup" method = "post">
-			ログインID : <input type = "text" id = "login_id" name = "login_id"><br/>
+			ログインID : <input type = "text" id = "login_id" name = "login_id" value = "${ info.getLogin_id() }"><br/>
 			<br/>
-			ユーザー名 : <input type = "text" id = "name" name = "name"><br/>
+			ユーザー名 : <input type = "text" id = "name" name = "name" value = "${ info.getName() }"><br/>
 			<br/>
 			パスワード : <input type = "password" id = "password" name = "password"><br/>
 			<br/>
@@ -40,21 +40,22 @@
 			支店 :
 			<select id = "branch_id" name = "branch_id">
 				<option value = "999">未選択</option>
-				<option value = "0">本社</option>
-				<option value = "1">支店A</option>
-				<option value = "2">支店B</option>
-				<option value = "3">支店C</option>
+				<c:forEach items = "${ branchList }" var = "branch">
+				<option value = "${ branch.id }" 
+				<c:if test = "${ branch.id == info.getBranch_id() }">selected</c:if>>${ branch.name }</option>
+				</c:forEach>
 			</select>
 			<br/>
 			<br/>
 			部署・役職 :
 			<select id = "department_id" name = "department_id">
 				<option value = "999">未選択</option>
-				<option value = "0">人事総務部</option>
-				<option value = "1">情報セキュリティ部</option>
-				<option value = "2">店長</option>
-				<option value = "3">社員</option>
+				<c:forEach items = "${ departmentList }" var = "department">
+				<option value = "${ department.id }" 
+				<c:if test = "${ department.id == info.getDepartment_id() }">selected</c:if>>${ department.name }</option>
+				</c:forEach>
 			</select>
+			<c:remove var = "info" scope = "session"/>
 			<br/>	
 			<input type = "submit" value = "登録"><br/>
 			<br/>

@@ -33,8 +33,8 @@ public class AuthorityFilter implements Filter {
 		User authority = (User) req.getSession().getAttribute("loginUser"); 
 		HttpSession session = req.getSession();
 		int authorityCheck = authority.getDepartment_id();
-		//役職が管理者(department_idが0)の人以外は該当ページにアクセスできなくする
-		if(authorityCheck != 0){
+		//役職が管理者(department_idが1)の人以外は該当ページにアクセスできなくする
+		if(authorityCheck != 1){
 			List<String> messages = new ArrayList<String>();
 			messages.add("該当するページへ移動する権限がありません");
 			session.setAttribute("errorMessages", messages);

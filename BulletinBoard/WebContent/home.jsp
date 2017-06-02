@@ -43,7 +43,7 @@ function commentDisp(){
 </head>
 <body>
 <div class = "header">	
-	<c:if test = "${ loginUser.department_id == 0 }">
+	<c:if test = "${ loginUser.department_id == 1 }">
 	<a href = "usercontrol">ユーザー管理</a>
 	</c:if>
 	<a href = "logout">ログアウト</a>
@@ -111,10 +111,10 @@ function commentDisp(){
 			
 			<%-- 情報セキュリティ部または投稿主のみ投稿を削除できるようif文を追加 --%>
 			<%-- 社員が投稿した場合その店舗の支店長は投稿削除できるようにもする --%>
-			<c:if test = "${ (loginUser.department_id == 1 || loginUser.id == message.user_id) ||
-			(message.branch_id == loginUser.branch_id && loginUser.department_id == 2) }">
+			<c:if test = "${ (loginUser.department_id == 2 || loginUser.id == message.user_id) ||
+			(message.branch_id == loginUser.branch_id && loginUser.department_id == 3) }">
 			<%-- 支店長が配下の社員の記事を削除できるようにする --%>
-			<form action = "index.jsp" method = "post">
+			<form action = "./" method = "post">
 				<input type = "hidden" name = "id" id = "id" value = "${ message.id }"/>
 				<input type = "hidden" name = "user_id" id = "user_id" value = "${ message.user_id }"/>
 				<input type = "submit" value = "削除" onClick = "return postDisp()"/>
@@ -129,8 +129,8 @@ function commentDisp(){
 					<div class = "timed_at"><c:out value = "${ comment.timed_at }"/></div>
 					<div class = "text"><c:out value = "${ comment.text }"/></div><br/>
 					<%-- コメントの削除機能 --%>
-					<%-- 管理者または投稿者は削除できる --%>
-					<c:if test = "${ loginUser.department_id == 1 || loginUser.id == comment.user_id }">
+					<%-- 情報セキュリティ部または投稿者は削除できる --%>
+					<c:if test = "${ loginUser.department_id == 2 || loginUser.id == comment.user_id }">
 					<form action = "commentdelete" method = "post">
 						<input type = "hidden" name = "id" id = "id" value = "${ comment.id }"/>
 						<input type = "hidden" name = "user_id" id = "user_id" value = "${ comment.user_id }"/>
@@ -144,7 +144,17 @@ function commentDisp(){
 			<form action = "comment" method = "post">
 				<input type = "hidden" name = "user_id" id = "user_id" value = "${ loginUser.id }"/>
 				<input type = "hidden" id = "post_id" name = "post_id" value = "${ message.id }"/>
-				<textarea name = "text" id = "text" rows="4" cols="60">           </textarea><br/>
+				<c:choose>
+					<c:when test = "${ post_id == message.id }">
+						<textarea name = "text" id = "text" rows="4" cols="60"><c:out value = "${ text }"/></textarea>
+					<c:remove var = "text" scope = "session"/>
+					<c:remove var = "post_id" scope = "session"/>
+					</c:when>
+					<c:otherwise>
+						<textarea name = "text" id = "text" rows="4" cols="60"></textarea>
+					</c:otherwise>
+				</c:choose>
+				<br/>
 				<input type = "submit" value = "コメント"/>
 			</form>
 			---------------------------------------------------------------------------------------------

@@ -60,43 +60,23 @@ function userDisp(){
 			<input type = "hidden" id = "password2" name = "password2" value = "${ data.password }">
 			支店 :
 			<select id = "branch_id" name = "branch_id">
-				<option value = "0" 
-				<c:if test = "${ data.branch_id == 0 }">
+			<c:forEach items = "${ branchList }" var = "branch">
+				<option value = "${ branch.id }" 
+				<c:if test = "${ data.branch_id == branch.id }">
 				selected
-				</c:if>>本社</option>
-				<option value = "1" 
-				<c:if test = "${ data.branch_id == 1 }">
-				selected
-				</c:if>>支店A</option>
-				<option value = "2" 
-				<c:if test = "${ data.branch_id == 2 }">
-				selected
-				</c:if>>支店B</option>
-				<option value = "3" 
-				<c:if test = "${ data.branch_id == 3 }">
-				selected
-				</c:if>>支店C</option>
+				</c:if>>${ branch.name }</option>
+			</c:forEach>
 			</select>
 			<br/>
 			<br/>
 			部署・役職 :
 			<select id = "department_id" name = "department_id">
-				<option value = "0" 
-				<c:if test = "${ data.department_id == 0 }">
+			<c:forEach items = "${ departmentList }" var = "department">
+				<option value = "${ department.id }" 
+				<c:if test = "${ data.department_id == department.id }">
 				selected
-				</c:if>>人事総務部</option>
-				<option value = "1" 
-				<c:if test = "${ data.department_id == 1 }">
-				selected
-				</c:if>>情報セキュリティ部</option>
-				<option value = "2" 
-				<c:if test = "${ data.department_id == 2 }">
-				selected
-				</c:if>>店長</option>
-				<option value = "3" 
-				<c:if test = "${ data.department_id == 3 }">
-				selected
-				</c:if>>社員</option>
+				</c:if>>${ department.name }</option>
+			</c:forEach>
 			</select>
 			<br/>	
 			<input type = "submit" value = "登録"><br/>
