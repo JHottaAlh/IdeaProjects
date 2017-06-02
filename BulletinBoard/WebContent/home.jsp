@@ -42,8 +42,13 @@ function commentDisp(){
 <title>Insert title here</title>
 </head>
 <body>
+<<<<<<< HEAD
 <div class = "header">	
 	<c:if test = "${ loginUser.department_id == 1 }">
+=======
+<div class = "header">
+	<c:if test = "${ loginUser.department_id == 0 }">
+>>>>>>> 0acb3fb6efff9c4b7284958d193c1e61e1e58eec
 	<a href = "usercontrol">ユーザー管理</a>
 	</c:if>
 	<a href = "logout">ログアウト</a>
@@ -61,14 +66,14 @@ function commentDisp(){
 	<c:remove var = "errorMessages" scope = "session"/>
 </c:if>
 <%-- ログインしている場合にプロフィールを表示 --%>
-<div class = "profile">	
+<div class = "profile">
 	<div class = "name"><h2><c:out value = "こんにちは、${ loginUser.name }さん"/></h2></div>
 	<div class = "login_id">
 		@<c:out value = "${ loginUser.login_id }"/><br/>
 		<br/>
 	</div>
 </div>
-	
+
 <%-- 新規投稿へのリンク --%>
 <div class = "menu">
 	<a href = "newpost">新規投稿</a>
@@ -108,7 +113,7 @@ function commentDisp(){
 			<div class = "text"><c:out value = "${ message.text }"/></div>
 			<div class = "name"><c:out value = "${ message.name }"/></div>
 			<div class = "date"><fmt:formatDate value = "${ message.timed_at }" pattern = "yyyy/MM/dd/ HH:mm:ss"/></div>
-			
+
 			<%-- 情報セキュリティ部または投稿主のみ投稿を削除できるようif文を追加 --%>
 			<%-- 社員が投稿した場合その店舗の支店長は投稿削除できるようにもする --%>
 			<c:if test = "${ (loginUser.department_id == 2 || loginUser.id == message.user_id) ||
@@ -144,6 +149,7 @@ function commentDisp(){
 			<form action = "comment" method = "post">
 				<input type = "hidden" name = "user_id" id = "user_id" value = "${ loginUser.id }"/>
 				<input type = "hidden" id = "post_id" name = "post_id" value = "${ message.id }"/>
+<<<<<<< HEAD
 				<c:choose>
 					<c:when test = "${ post_id == message.id }">
 						<textarea name = "text" id = "text" rows="4" cols="60"><c:out value = "${ text }"/></textarea>
@@ -155,6 +161,16 @@ function commentDisp(){
 					</c:otherwise>
 				</c:choose>
 				<br/>
+=======
+			<%--	<c:if test = "${ text.post_id == message.id }"> --%>
+			<%--	<textarea name = "text" id = "text" rows="4" cols="60"> --%>
+			<%--			<c:out value = "${ text.text }"/> --%>
+			<%--	</textarea> --%>
+			<%--	</c:if> --%>
+			<%--	<c:if test = "${ text.post_id != message.id }">--%>
+				<textarea name = "text" id = "text" rows="4" cols="60"></textarea>
+			<%--	</c:if>--%><br/>
+>>>>>>> 0acb3fb6efff9c4b7284958d193c1e61e1e58eec
 				<input type = "submit" value = "コメント"/>
 			</form>
 			---------------------------------------------------------------------------------------------

@@ -20,6 +20,7 @@ import service.CommentService;
 @WebServlet("/comment")
 public class CommentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+<<<<<<< HEAD
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
@@ -27,27 +28,37 @@ public class CommentServlet extends HttpServlet {
 	}
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+=======
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+>>>>>>> 0acb3fb6efff9c4b7284958d193c1e61e1e58eec
 			throws ServletException, IOException {
-		
+
 		List<String> messages = new ArrayList<String>();
 		HttpSession session = request.getSession();
+<<<<<<< HEAD
 		if (isValid(request, messages)){
 		
+=======
+		if (isValid(request, messages) == true){
+
+>>>>>>> 0acb3fb6efff9c4b7284958d193c1e61e1e58eec
 			int user_id = Integer.parseInt(request.getParameter("user_id"));
 			int post_id = Integer.parseInt(request.getParameter("post_id"));
 			String text = request.getParameter("text");
-		
+
 			Comment comment = new Comment();
 			comment.setUser_id(user_id);
 			comment.setPost_id(post_id);
 			comment.setText(text);
-		
+
 			CommentService commentService = new CommentService();
 			commentService.register(comment);
-		
+
 			response.sendRedirect("./");
 		}else{
 			//コメントが未入力、文字数に不正があったとき記入情報を保持して再入力できるようにする(途中)
+<<<<<<< HEAD
 			session.setAttribute("errorMessages", messages);
 			
 			String text = request.getParameter("text");
@@ -59,9 +70,19 @@ public class CommentServlet extends HttpServlet {
 			
 			response.sendRedirect("./");
 			
+=======
+			//Comment comment = new Comment();
+			//comment.setPost_id(Integer.parseInt(request.getParameter("post_id")));
+			//comment.setText(request.getParameter("text"));
+
+			//request.setAttribute("text", comment);
+
+			session.setAttribute("errorMessages", messages);
+			request.getRequestDispatcher("./").forward(request, response);
+>>>>>>> 0acb3fb6efff9c4b7284958d193c1e61e1e58eec
 		}
 	}
-	
+
 	private boolean isValid(HttpServletRequest request, List<String>messages){
 		String text = request.getParameter("text");
 
