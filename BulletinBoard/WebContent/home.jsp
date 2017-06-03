@@ -42,7 +42,7 @@ function commentDisp(){
 <title>Insert title here</title>
 </head>
 <body>
-<div class = "header">	
+<div class = "header">
 	<c:if test = "${ loginUser.department_id == 1 }">
 	<a href = "usercontrol">ユーザー管理</a>
 	</c:if>
@@ -61,14 +61,14 @@ function commentDisp(){
 	<c:remove var = "errorMessages" scope = "session"/>
 </c:if>
 <%-- ログインしている場合にプロフィールを表示 --%>
-<div class = "profile">	
+<div class = "profile">
 	<div class = "name"><h2><c:out value = "こんにちは、${ loginUser.name }さん"/></h2></div>
 	<div class = "login_id">
 		@<c:out value = "${ loginUser.login_id }"/><br/>
 		<br/>
 	</div>
 </div>
-	
+
 <%-- 新規投稿へのリンク --%>
 <div class = "menu">
 	<a href = "newpost">新規投稿</a>
@@ -90,12 +90,16 @@ function commentDisp(){
 	<form action = "index.jsp" method = "get">
 	<select id = "category" name = "category">
 		<option value = "">未選択</option>
-		<option value = "支店情報">支店情報</option>
-		<option value = "本部情報">本部情報</option>
-		<option value = "共通">共通</option>
+		<c:forEach items = "${ categories }" var = "categories">
+			<option value = "${ categories.category }"
+			<c:if test = "${ categories.category == category }">
+			selected
+			</c:if>>
+			<c:out value = "${ categories.category }"/></option>
+		</c:forEach>
 	</select>
-	<input type ="date" id = "oldDate" name = "oldDate" value = "">
-	<input type ="date" id = "latestDate" name = "latestDate" value = "">
+	<input type ="date" id = "oldDate" name = "oldDate" value = "${ oldDate }">
+	<input type ="date" id = "latestDate" name = "latestDate" value = "${ latestDate }">
 	<input type = "submit" value = "絞込">
 	</form>
 </div>
@@ -108,7 +112,7 @@ function commentDisp(){
 			<div class = "text"><c:out value = "${ message.text }"/></div>
 			<div class = "name"><c:out value = "${ message.name }"/></div>
 			<div class = "date"><fmt:formatDate value = "${ message.timed_at }" pattern = "yyyy/MM/dd/ HH:mm:ss"/></div>
-			
+
 			<%-- 情報セキュリティ部または投稿主のみ投稿を削除できるようif文を追加 --%>
 			<%-- 社員が投稿した場合その店舗の支店長は投稿削除できるようにもする --%>
 			<c:if test = "${ (loginUser.department_id == 2 || loginUser.id == message.user_id) ||

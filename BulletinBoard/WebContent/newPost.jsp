@@ -31,10 +31,14 @@
 	</div>
 	<div class = "category">
 		カテゴリ : <br/>
-		<select name = "category">
-			<option value = "支店情報">支店情報</option>
-			<option value = "本部情報">本部情報</option>
-			<option value = "共通">共通</option>
+		<select name = "category" id = "category">
+			<option value = "">未選択</option>
+			<c:forEach items = "${ categories }" var = "categories">
+			<option value = "${ categories.category }"
+			<c:if test = "${ contents.get(2) == categories.category }">
+			selected</c:if>>
+			<c:out value = "${ categories.category }"/></option>
+			</c:forEach>
 		</select><br/>
 		<br/>
 	</div>

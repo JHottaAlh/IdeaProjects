@@ -36,10 +36,10 @@ function disp(){
 	<tr>
 	<td>ログインID</td> <td>ユーザー名</td> <td>支店</td> <td>部署・役職</td> <td>状態</td> <td>編集</td>
 	</tr>
-	
+
 	<%-- 登録された社員の数だけリストを表示する(未実装) --%>
 	<%--ServletでUserControl(Beans)型のuserDataリストに格納したデータをdata変数に格納 --%>
- 	<c:forEach items = "${ userData }" var = "data"> 
+ 	<c:forEach items = "${ userData }" var = "data">
  		<tr>
  			<td><c:out value = "${ data.login_id }"/></td>
  			<td><c:out value = "${ data.name }"/></td>
@@ -60,18 +60,18 @@ function disp(){
  					</c:if>
  				</form>
  			</c:if>
- 			</td> 			
+ 			</td>
  			<td>
  			<c:if test = "${ loginUser.id != data.id }">
- 				<form action = "useredit" method = "post">			
+ 				<form action = "useredit" method = "get">
  				<input type = "hidden" name = "id" id = "id" value = "${ data.id }"/>
  				<input type = "submit" value = "編集"/>
  				</form>
  			</c:if>
  			</td>
- 		</tr> 
- 	</c:forEach> 
-	
+ 		</tr>
+ 	</c:forEach>
+
 	</table>
 </div>
 

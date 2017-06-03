@@ -41,7 +41,7 @@
 			<select id = "branch_id" name = "branch_id">
 				<option value = "999">未選択</option>
 				<c:forEach items = "${ branchList }" var = "branch">
-				<option value = "${ branch.id }" 
+				<option value = "${ branch.id }"
 				<c:if test = "${ branch.id == info.getBranch_id() }">selected</c:if>>${ branch.name }</option>
 				</c:forEach>
 			</select>
@@ -51,12 +51,12 @@
 			<select id = "department_id" name = "department_id">
 				<option value = "999">未選択</option>
 				<c:forEach items = "${ departmentList }" var = "department">
-				<option value = "${ department.id }" 
+				<option value = "${ department.id }"
 				<c:if test = "${ department.id == info.getDepartment_id() }">selected</c:if>>${ department.name }</option>
 				</c:forEach>
 			</select>
 			<c:remove var = "info" scope = "session"/>
-			<br/>	
+			<br/>
 			<input type = "submit" value = "登録"><br/>
 			<br/>
 		</form>
