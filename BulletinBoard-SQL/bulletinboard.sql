@@ -47,3 +47,11 @@ CREATE TABLE comments
 	,post_id	INT				NOT NULL 
 	,user_id	INT				NOT NULL
 );
+
+CREATE TABLE categories
+(
+	id	INT	PRIMARY KEY AUTO_INCREMENT
+    ,category	VARCHAR(10)	UNIQUE NOT NULL
+    ,timed_at	TIMESTAMP	NOT NULL
+    ,updated_at	TIMESTAMP	NOT NULL
+);
