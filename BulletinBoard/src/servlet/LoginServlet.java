@@ -27,18 +27,18 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.getRequestDispatcher("/login.jsp").forward(request, response);
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		//ログイン画面で入力されたIDとパスワードを受け取る
 		String login_id = request.getParameter("login_id");
 		String password = request.getParameter("password");
-		
+
 		//LoginServiceクラスのインスタンスを生成
 		LoginService loginService = new LoginService();
 		User user = loginService.login(login_id, password);
-		
+
 		//セッションを作成
 		HttpSession session = request.getSession();
 		//ユーザーが存在した場合(ログインIDとパスワードが一致した場合)

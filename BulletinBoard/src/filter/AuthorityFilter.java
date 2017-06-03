@@ -18,19 +18,20 @@ import javax.servlet.http.HttpSession;
 
 import model.User;
 
-@WebFilter(filterName = "AuthorityFilter", urlPatterns = {"/useredit", "/usercontrol", "/userControl.jsp", "/userEdit.jsp"})
+@WebFilter(filterName = "AuthorityFilter",
+urlPatterns = {"/useredit", "/usercontrol", "/userControl.jsp", "/userEdit.jsp", "/signup", "/signup.jsp"})
 public class AuthorityFilter implements Filter {
-	
+
 	public void init(FilterConfig config){
 	}
-	
+
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException{
 		//Servlet(Request/Response)をHttpServlet型にキャスト
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
-		
-		User authority = (User) req.getSession().getAttribute("loginUser"); 
+
+		User authority = (User) req.getSession().getAttribute("loginUser");
 		HttpSession session = req.getSession();
 		int authorityCheck = authority.getDepartment_id();
 		//役職が管理者(department_idが1)の人以外は該当ページにアクセスできなくする
@@ -44,7 +45,7 @@ public class AuthorityFilter implements Filter {
 			chain.doFilter(req, res);
 		}
 	}
-	
+
 	public void destroy(){
 	}
 

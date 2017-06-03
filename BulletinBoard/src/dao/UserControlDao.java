@@ -15,7 +15,7 @@ import exception.SQLRuntimeException;
 import model.UserControl;
 
 public class UserControlDao {
-	
+
 	public List<UserControl> getUserControl(Connection connection){
 		PreparedStatement ps = null;
 		try{
@@ -23,10 +23,10 @@ public class UserControlDao {
 			sql.append("SELECT * FROM user_control ");
 			//DESCはデータのソート機能
 			sql.append("ORDER BY id ASC");
-			
+
 			//psには上述したSQL文が一行で記述されている
 			ps = connection.prepareStatement(sql.toString());
-			
+
 			//ps(SQL文)を実行、Queryによりデータを取り出しそれをrsに格納している
 			ResultSet rs = ps.executeQuery();
 			List<UserControl> ret = toUserControlList(rs);
@@ -38,22 +38,22 @@ public class UserControlDao {
 			close(ps);
 		}
 	}
-	
+
 	//特定のユーザーの情報だけを抽出するためのDao
 		public  List<UserControl> personalDataDao(Connection connection, int primaryID){
-			
+
 			PreparedStatement ps = null;
 			try{
 				StringBuilder sql = new StringBuilder();
-				sql.append("SELECT*FROM users WHERE id = ? ;");
-				
+				sql.append("SELECT*FROM user_control WHERE id = ? ;");
+
 				ps = connection.prepareStatement(sql.toString());
-				
+
 				ps.setInt(1, primaryID);
-				
+
 				ResultSet rs = ps.executeQuery();
 				List<UserControl> ret = toUserControlList(rs);
-				
+
 				return ret;
 			}catch(SQLException e){
 				throw new SQLRuntimeException(e);
@@ -61,10 +61,10 @@ public class UserControlDao {
 				close(ps);
 			}
 		}
-	
-	
+
+
 	//user_controlビューから取り出したデータを格納するメソッド
-	private List<UserControl> toUserControlList(ResultSet rs) 
+	private List<UserControl> toUserControlList(ResultSet rs)
 			throws SQLException{
 		List<UserControl> ret = new ArrayList<UserControl>();
 		try{
@@ -80,7 +80,7 @@ public class UserControlDao {
 				int department_id = rs.getInt("department_id");
 				String branch_name = rs.getString("branch_name");
 				String department_name = rs.getString("department_name");
-				
+
 				//ローカル変数をuserData(Beans)にセット
 				UserControl userData = new UserControl();
 				userData.setId(id);
@@ -92,7 +92,7 @@ public class UserControlDao {
 				userData.setDepartment_id(department_id);
 				userData.setBranch_name(branch_name);
 				userData.setDepartment_name(department_name);
-				
+
 				//retにBeansの情報を格納して戻り値として戻す
 				ret.add(userData);
 			}
