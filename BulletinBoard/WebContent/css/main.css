@@ -3,17 +3,20 @@
 
 
 h1 {
+	font-weight: large;
+}
+h2 {
 	font-weight: normal;
 }
+
 #main-contents input,textarea {
-    width: 100%;
-    padding: 10px;
+    width: 300px;
+    padding: 17px;
     box-sizing: border-box;
     border: none;
-    border-radius: 0px;
-    -webkit-appearance: none;
     appearance: none;
 }
+
 input:focus,textarea:focus { outline: none;}
 input[type=radio], input[type=checkbox]{ display: none;}
 
@@ -21,6 +24,7 @@ input[type=radio], input[type=checkbox]{ display: none;}
 	background-color: #A9F5BC;
 }
 
+/* ページ全体の設定 */
 body {
 	font-family: Helvetica , "游ゴシック" , "Yu Gothic" , sans-serif;
 	color: #333333;
@@ -31,11 +35,21 @@ body {
 
 #main-contents {
 	text-align: center;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }
 
 .login-main{
 	text-align: center;
+}
+
+/* 上部だけ角丸に */
+#main-contents input#login_id {
+	border-radius: 3px 3px 0 0 / 3px 3px 0 0;
+	-webkit-border-radius: 3px 3px 0 0 / 3px 3px 0 0;
+	-moz-border-radius: 3px 3px 0 0 / 3px 3px 0 0;
+}
+/* 下部だけ角丸に */
+#main-contents input#password {
+	border-radius: 0 0 3px 3px / 0 0 3px 3px;
+	-webkit-border-radius: 0 0 3px 3px / 0 0 3px 3px;
+	-moz-border-radius: 0 0 3px 3px / 0 0 3px 3px;
 }
