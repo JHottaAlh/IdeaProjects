@@ -1,0 +1,18 @@
+@CHARSET "UTF-8";
+
+
+
+h1 {
+	font-weight: normal;
+}
+
+body {  
+	font-family: Helvetica , "游ゴシック" , "Yu Gothic" , sans-serif;
+	color: #333333;
+}  
+
+/*ログイン画面*/
+
+#login {
+	text-align: center;
+}

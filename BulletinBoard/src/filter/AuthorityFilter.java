@@ -30,19 +30,23 @@ public class AuthorityFilter implements Filter {
 		//Servlet(Request/Response)をHttpServlet型にキャスト
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
-
-		User authority = (User) req.getSession().getAttribute("loginUser");
-		HttpSession session = req.getSession();
-		int authorityCheck = authority.getDepartment_id();
-		//役職が管理者(department_idが1)の人以外は該当ページにアクセスできなくする
-		if(authorityCheck != 1){
-			List<String> messages = new ArrayList<String>();
-			messages.add("該当するページへ移動する権限がありません");
-			session.setAttribute("errorMessages", messages);
-			req.getRequestDispatcher("./").forward(req, res);
-		//管理者の人であるならば処理を継続
-		}else{
-			chain.doFilter(req, res);
+		
+		String uri = req.getRequestURI();
+		if(!uri.matches(".*/css.*")){
+			
+			User authority = (User) req.getSession().getAttribute("loginUser");
+			HttpSession session = req.getSession();
+			int authorityCheck = authority.getDepartment_id();
+			//役職が管理者(department_idが1)の人以外は該当ページにアクセスできなくする
+			if(authorityCheck != 1){
+				List<String> messages = new ArrayList<String>();
+				messages.add("該当するページへ移動する権限がありません");
+				session.setAttribute("errorMessages", messages);
+				req.getRequestDispatcher("./").forward(req, res);
+				//管理者の人であるならば処理を継続
+			}else{
+				chain.doFilter(req, res);
+			}
 		}
 	}
 

@@ -32,8 +32,7 @@ public class LoginAccessFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 		
 		String uri = req.getRequestURI();
-		if(!uri.matches(".*/login.*")){
-		
+		if(!uri.matches(".*/login.*") && !uri.matches(".*/css.*")){
 			User userCheck = (User) req.getSession().getAttribute("loginUser");
 			//セッション呼び出し
 			HttpSession session = req.getSession();
@@ -64,7 +63,7 @@ public class LoginAccessFilter implements Filter {
 				return;
 			}
 		}else{
-			chain.doFilter(req, res);
+			chain.doFilter(req, res);	
 		}
 	}
 	
