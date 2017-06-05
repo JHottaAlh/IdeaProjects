@@ -5,7 +5,32 @@
            http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
            version="3.0">
 
-
+	<filter-mapping>
+		<filter-name>
+			EncodingFilter
+		</filter-name>
+		<url-pattern>
+			/*
+		</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>
+			LoginAccessFilter
+		</filter-name>
+		<url-pattern>
+			/*
+		</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>
+			AuthorityFilter
+		</filter-name>
+		<url-pattern>
+			/useredit, /usercontrol, /userControl.jsp, /userEdit.jsp, /signup, /signup.jsp
+		</url-pattern>
+	</filter-mapping>
 
 
 </web-app>

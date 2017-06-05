@@ -4,6 +4,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix = "fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -109,7 +110,13 @@ function commentDisp(){
 		<div class = "post">
 			<div class = "title"><c:out value = "${ message.title }"/></div>
 			<div class = "category"><c:out value = "${ message.category }"/></div>
-			<div class = "text"><c:out value = "${ message.text }"/></div>
+			<%-- taglib fn:splitで文字列中の改行で区切ってforEachで一行ずつ表示 --%>
+			<div class = "text">
+			<c:forEach items = "${ fn:split(message.text,'
+			') }" var = "arr">
+				<c:out value = "${ arr }"/><br/>
+			</c:forEach>
+			</div>
 			<div class = "name"><c:out value = "${ message.name }"/></div>
 			<div class = "date"><fmt:formatDate value = "${ message.timed_at }" pattern = "yyyy/MM/dd/ HH:mm:ss"/></div>
 
@@ -131,7 +138,12 @@ function commentDisp(){
 					------------------------------------------------------------------------
 					<div class = "name"><c:out value = "${ comment.name }"/></div>
 					<div class = "timed_at"><c:out value = "${ comment.timed_at }"/></div>
-					<div class = "text"><c:out value = "${ comment.text }"/></div><br/>
+					<div class = "text">
+					<c:forEach items = "${ fn:split(comment.text, '
+					') }" var = "arrC">
+						<c:out value = "${ arrC }"/><br />
+					</c:forEach>
+					</div><br/>
 					<%-- コメントの削除機能 --%>
 					<%-- 情報セキュリティ部または投稿者は削除できる --%>
 					<c:if test = "${ loginUser.department_id == 2 || loginUser.id == comment.user_id }">
