@@ -56,7 +56,8 @@ public class LoginServlet extends HttpServlet {
 				List<String> messages = new ArrayList<String>();
 				messages.add("該当するアカウントは管理者によって停止されています");
 				session.setAttribute("errorMessages", messages);
-				response.sendRedirect("login.jsp");
+				request.setAttribute("login_id", login_id);
+				request.getRequestDispatcher("/login.jsp").forward(request, response);
 			}else{
 				//セッションにユーザー情報を追加
 				//loginUserキーにuserの値を格納
@@ -69,7 +70,8 @@ public class LoginServlet extends HttpServlet {
 			List<String> messages = new ArrayList<String>();
 			messages.add("ログインに失敗しました");
 			session.setAttribute("errorMessages", messages);
-			response.sendRedirect("login.jsp");
+			request.setAttribute("login_id", login_id);
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
 	}
 }

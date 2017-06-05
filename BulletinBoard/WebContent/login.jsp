@@ -7,6 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="./css/main.css" rel="stylesheet" type="text/css" media="screen" />
 <title>ログイン画面</title>
 </head>
 <body>
@@ -25,11 +26,14 @@
 </c:if>
 
 <%-- ログインID/パスワード入力フォーム --%>
+<div id = "login">
+<h1>ログイン</h1>
 <form action = "login" method = "post">
-	ログインID : <input type = "text" name = "login_id" id = "login_id"><br />
+	ログインID : <input type = "text" name = "login_id" id = "login_id" value = "${ login_id }"><br />
 	パスワード : <input type = "password" name = "password" id = "password"><br />
 	<input type = "submit" value = "ログイン"><br />
 </form>
+</div>
 </div>
 </body>
 </html>
