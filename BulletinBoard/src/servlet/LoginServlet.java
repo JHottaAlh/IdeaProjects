@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.User;
-import service.LoginService;		//ログイン可能なID、パスワードかのチェック
+import service.LoginService;
 
 /**
  * Servlet implementation class Index
@@ -25,9 +25,17 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("/login.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+		List<String> messages = new ArrayList<String>();
+		User userCheck = (User) request.getSession().getAttribute("loginUser");
+		if(userCheck != null){
+			messages.add("既にログイン済みです");
+			session.setAttribute("errorMessages", messages);
+			response.sendRedirect("./");
+		}else{
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+		}
 	}
-
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

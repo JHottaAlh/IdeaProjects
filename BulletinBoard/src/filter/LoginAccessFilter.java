@@ -31,34 +31,40 @@ public class LoginAccessFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 		
-		User userCheck = (User) req.getSession().getAttribute("loginUser");
-		//セッション呼び出し
-		HttpSession session = req.getSession();
-		//ユーザーがログインしていたらそのユーザーの情報を取得
-		if(userCheck != null){
-			String login_id = userCheck.getLogin_id().toString();
-			String password = userCheck.getPassword().toString();
+		String uri = req.getRequestURI();
+		if(!uri.matches(".*/login.*")){
+		
+			User userCheck = (User) req.getSession().getAttribute("loginUser");
+			//セッション呼び出し
+			HttpSession session = req.getSession();
+			//ユーザーがログインしていたらそのユーザーの情報を取得
+			if(userCheck != null){
+				String login_id = userCheck.getLogin_id().toString();
+				String password = userCheck.getPassword().toString();
 			
-			//該当ユーザーの情報をアクセス毎に受け取る(状態を更新)
-			LoginService loginServiceCheck = new LoginService();
-			User user = loginServiceCheck.filter(login_id, password);
+				//該当ユーザーの情報をアクセス毎に受け取る(状態を更新)
+				LoginService loginServiceCheck = new LoginService();
+				User user = loginServiceCheck.filter(login_id, password);
 			
-			//アカウントが停止状態だった場合ログイン画面にGo
-			if(user.getIs_stopped() == 1){
-				List<String> messages = new ArrayList<String>();
-				messages.add("該当するアカウントは管理者によって停止されています");
-				session.setAttribute("errorMessages", messages);
-				req.getRequestDispatcher("login").forward(request, response);
-				session.invalidate();//セッションの無効化
-				return;
+				//アカウントが停止状態だった場合ログイン画面にGo
+				if(user.getIs_stopped() == 1){
+					List<String> messages = new ArrayList<String>();
+					messages.add("該当するアカウントは管理者によって停止されています");
+					session.setAttribute("errorMessages", messages);
+					req.getRequestDispatcher("login").forward(request, response);
+					session.invalidate();//セッションの無効化
+					return;
+				}else{
+					session.setAttribute("loginUser", user);
+					chain.doFilter(req, res);
+				}
+				//そもそもログイン状態じゃなかったらログイン画面にGo(エラーなし)
 			}else{
-				session.setAttribute("loginUser", user);
-				chain.doFilter(req, res);
+				res.sendRedirect("login");
+				return;
 			}
-		//そもそもログイン状態じゃなかったらログイン画面にGo(エラーなし)
 		}else{
-			req.getRequestDispatcher("login").forward(request, response);
-			return;
+			chain.doFilter(req, res);
 		}
 	}
 	

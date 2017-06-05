@@ -78,7 +78,7 @@ public class NewPostServlet extends HttpServlet {
 		if(StringUtils.isEmpty(title)){
 			messages.add("件名が未入力です");
 		}else if(StringUtils.isBlank(title)){
-			messages.add("件名が不正です");
+			messages.add("件名が空白のみです");
 		}
 		if(50 < title.length()){
 			messages.add("件名は50文字以内で入力してください");
@@ -91,7 +91,7 @@ public class NewPostServlet extends HttpServlet {
 		if(StringUtils.isEmpty(text)){
 			messages.add("本文が未入力です");
 		}else if(StringUtils.isBlank(text)){
-			messages.add("本文が不正です");
+			messages.add("本文が空白のみです");
 		}
 
 		if(1000 < text.length()){

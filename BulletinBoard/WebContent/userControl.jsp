@@ -30,6 +30,18 @@ function disp(){
 <a href = "signup">ユーザー登録</a>
 <a href = "./">戻る</a>
 </div>
+<%-- エラーメッセージ --%>
+<c:if test = "${ not empty errorMessages }">
+	<div class = "errorMessages">
+		<ul>
+			<c:forEach items = "${ errorMessages }" var = "message">
+				<li><c:out value = "${ message }"/>
+			</c:forEach>
+		</ul>
+	</div>
+	<%-- セッションスコープからエラーメッセージ文を破棄 --%>
+	<c:remove var = "errorMessages" scope = "session"/>
+</c:if>
 
 <div class = "member-list">
 	<table border="1">
@@ -62,12 +74,10 @@ function disp(){
  			</c:if>
  			</td>
  			<td>
- 			<c:if test = "${ loginUser.id != data.id }">
- 				<form action = "useredit" method = "get">
- 				<input type = "hidden" name = "id" id = "id" value = "${ data.id }"/>
- 				<input type = "submit" value = "編集"/>
- 				</form>
- 			</c:if>
+ 			<form action = "useredit" method = "get">
+ 			<input type = "hidden" name = "id" id = "id" value = "${ data.id }"/>
+ 			<input type = "submit" value = "編集"/>
+ 			</form>
  			</td>
  		</tr>
  	</c:forEach>

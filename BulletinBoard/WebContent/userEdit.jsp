@@ -58,6 +58,9 @@ function userDisp(){
 			<br/>
 			<%-- 何も入力されなかったときのための暗号化された元のパスワードを送る --%>
 			<input type = "hidden" id = "password2" name = "password2" value = "${ data.password }">
+			<%-- 管理者自身は権限を編集できないようにする --%>
+			<c:choose>
+			<c:when test = "${ loginUser.id != data.id }">
 			支店 :
 			<select id = "branch_id" name = "branch_id">
 			<c:forEach items = "${ branchList }" var = "branch">
@@ -78,7 +81,14 @@ function userDisp(){
 				</c:if>>${ department.name }</option>
 			</c:forEach>
 			</select>
-			<br/>	
+			<br/>
+			</c:when>
+			<%-- 管理者ならもとの支店、部署・役職情報を送りなおす --%>
+			<c:otherwise>
+				<input type = "hidden" id = "branch_id" name = "branch_id" value = "${ data.branch_id }">
+				<input type = "hidden" id = "department_id" name = "department_id" value = "${ data.department_id }">
+			</c:otherwise>
+			</c:choose>
 			<input type = "submit" value = "登録"><br/>
 			<br/>
 		</form>

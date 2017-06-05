@@ -70,7 +70,7 @@ public class CommentServlet extends HttpServlet {
 		if(text.isEmpty()){
 			messages.add("コメントが未入力です");
 		}else if(StringUtils.isBlank(text)){
-			messages.add("コメントが不正です");
+			messages.add("コメントが空白のみです");
 		}
 
 		if(500 < text.length()){
