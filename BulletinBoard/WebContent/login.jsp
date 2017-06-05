@@ -11,28 +11,29 @@
 <title>ログイン画面</title>
 </head>
 <body>
-<div class = "main-contents">
+<div id = "main-contents">
+<div class = "login-main">
 <%-- エラーメッセージ --%>
 <c:if test = "${ not empty errorMessages }">
 	<div class = "errorMessages">
-		<ul>
-			<c:forEach items = "${ errorMessages }" var = "message">
-				<li><c:out value = "${ message }"/>
-			</c:forEach>
-		</ul>
+		<c:forEach items = "${ errorMessages }" var = "message">
+			<c:out value = "${ message }"/>
+		</c:forEach>
 	</div>
 	<%-- セッションスコープからエラーメッセージ文を破棄 --%>
 	<c:remove var = "errorMessages" scope = "session"/>
 </c:if>
 
 <%-- ログインID/パスワード入力フォーム --%>
-<div id = "login">
+<div class = "login">
 <h1>ログイン</h1>
 <form action = "login" method = "post">
 	ログインID : <input type = "text" name = "login_id" id = "login_id" value = "${ login_id }"><br />
 	パスワード : <input type = "password" name = "password" id = "password"><br />
-	<input type = "submit" value = "ログイン"><br />
+	<br/>
+	<input type = "submit" id = "submit" value = "ログイン"><br />
 </form>
+</div>
 </div>
 </div>
 </body>
