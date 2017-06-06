@@ -13,7 +13,7 @@ div {
 	margin-bottom: 1rem;
 }
 p {
-	overflow: hidden; 
+	overflow: hidden;
 	padding: 4px 0px;
 }
 form {
@@ -21,11 +21,11 @@ form {
 	margin: 10px;
 }
 select {
-	
+
 }
 /* 日付選択のレイアウト */
 .date {
-	
+
 }
 
 .errorMessages {
@@ -84,7 +84,7 @@ body {
     -webkit-appearance: none;
     appearance: none;
     background-color: rgba(255,255,255,0.0);						/* テキストエリアの透過 */
-    border-bottom: 1px solid #ffffff;					
+    border-bottom: 1px solid #ffffff;
 }
 
 /* ログイン送信ボタンのレイアウト(オートコンプリートが未実装) */
@@ -163,24 +163,87 @@ input[type=radio], input[type=checkbox]{ display: none;}
 
 /* 記事全体設定 */
 .post {
-	padding-left: 10px;
+	padding: 10px 10px 0 10px;
 }
 
 .title {
-	width: 20%;
-	float: left;
+	border-bottom: 1px solid #ffcc33;
+	margin-bottom: 0;
 }
 .title h1 {
 	font-weight: x-large;
 	color: #ffcc33;
+	display:inline;
 }
-.title .mainText {
-	width: 80%;
-	float: left;
+.title p {
+	font-size: large;
+	font-weight: bold;
+	display:inline;
+}
+.category {
+	text-align: right;
+	margin-bottom: 0;
+}
+.date {
+	text-align: right;
+	margin-bottom: 0;
+}
+.name {
+	text-align: right;
+	margin-bottom: 0;
 }
 
+.name p {
+	color: #ffcc33;
+	display:inline;
+}
+.postText {
+	border-bottom: 1px solid #ffcc33;
+	margin-bottom: 0;
+	width: 40%;
+}
+.postText h2 {
+	font-size: large;
+	color: #ffcc33;
+}
 
+/* コメント関連 */
+.comFormtag {
+	margin-left: 0;
+}
 
+.comForm{
+	width: 40%;								/* フォームの大きさを指定 */
+	margin-left: 0;
+}
+.comTitle {
+	border-bottom: 1px solid #ffcc33;
+	margin-bottom: 0;
+}
+.comTitle h2 {
+	font-size: large;
+	color: #ffcc33;
+}
 
+.textForm input,textarea {
+	color: #ffffff;
+    padding: 13px;
+    box-sizing: border-box;
+    border: none;
+    -webkit-appearance: none;
+    appearance: none;
+	background-color: rgba(255,255,255,0.5);
+}
 
-
+.comSend input,textarea {
+	color: #ffcc33;
+    padding: 15px;
+    box-sizing: border-box;
+    border: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: rgba(255,255,255,0.0);
+}
+.comSend {
+	text-align: center;
+}

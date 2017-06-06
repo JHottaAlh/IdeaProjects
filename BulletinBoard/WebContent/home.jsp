@@ -74,7 +74,7 @@ function commentDisp(){
 
 	<%-- ログインしている場合にプロフィールを表示 --%>
 	<div class = "profile">
-		<div class = "name"><h2><c:out value = "こんにちは、${ loginUser.name }さん"/></h2></div>
+		<div class = "topName"><h2><c:out value = "こんにちは、${ loginUser.name }さん"/></h2></div>
 			<div class = "login_id">
 				@<c:out value = "${ loginUser.login_id }"/><br/>
 				<br/>
@@ -121,21 +121,23 @@ function commentDisp(){
 		<div id = "main">
 			<div class = "post">
 				<div class = "title">
-					<h1>Title</h1>
+					<h1 style="display: inline">Title : </h1><p style="display: inline"><c:out value = "${ message.title }"/></p>
 				</div>
-				<span class = "mainText">
-					<c:out value = "${ message.title }"/>
-				</span>
-				<div class = "category"><c:out value = "${ message.category }"/></div>
+				<div class = "category">カテゴリ : <c:out value = "${ message.category }"/></div>
+				<div class = "date"><fmt:formatDate value = "${ message.timed_at }" pattern = "yyyy/MM/dd/ HH:mm"/></div>
+				<div class = "name">投稿者 : <p style="display: inline"><c:out value = "${ message.name }"/></p></div>
 				<%-- taglib fn:splitで文字列中の改行で区切ってforEachで一行ずつ表示 --%>
+				<div class = "postText">
+					<h2 style="display: inline">Text</h2>
+				</div>
 				<div class = "text">
 					<c:forEach items = "${ fn:split(message.text,'
 					') }" var = "arr">
 					<c:out value = "${ arr }"/><br/>
 					</c:forEach>
 				</div>
-			<div class = "name"><c:out value = "${ message.name }"/></div>
-			<div class = "date"><fmt:formatDate value = "${ message.timed_at }" pattern = "yyyy/MM/dd/ HH:mm:ss"/></div>
+
+
 
 			<%-- 情報セキュリティ部または投稿主のみ投稿を削除できるようif文を追加 --%>
 			<%-- 社員が投稿した場合その店舗の支店長は投稿削除できるようにもする --%>
@@ -152,10 +154,9 @@ function commentDisp(){
 			<c:forEach items = "${ comments }" var = "comment">
 				<c:if test = "${ comment.post_id == message.id }">
 					<div class = "comment">
-					------------------------------------------------------------------------
-						<div class = "name"><c:out value = "${ comment.name }"/></div>
-						<div class = "timed_at"><c:out value = "${ comment.timed_at }"/></div>
-						<div class = "text">
+						<div class = "comName"><c:out value = "${ comment.name }"/></div>
+						<div class = "comTimed_at"><fmt:formatDate value = "${ comment.timed_at }" pattern = "yyyy/MM/dd/ HH:mm"/></div>
+						<div class = "comText">
 							<c:forEach items = "${ fn:split(comment.text, '
 							') }" var = "arrC">
 							<c:out value = "${ arrC }"/><br />
@@ -174,9 +175,14 @@ function commentDisp(){
 				</c:if>
 			</c:forEach>
 			<%-- コメント投稿フォーム --%>
-			<form action = "comment" method = "post">
+			<div class = "comForm">
+			<form action = "comment" method = "post" class = "comFormtag">
+				<div class = "textForm">
 				<input type = "hidden" name = "user_id" id = "user_id" value = "${ loginUser.id }"/>
 				<input type = "hidden" id = "post_id" name = "post_id" value = "${ message.id }"/>
+				<div class = "comTitle">
+					<h2 style="display: inline">Comment</h2>
+				</div>
 				<c:choose>
 					<c:when test = "${ post_id == message.id }">
 						<textarea name = "text" id = "text" rows="4" cols="60"><c:out value = "${ text }"/></textarea>
@@ -187,15 +193,20 @@ function commentDisp(){
 						<textarea name = "text" id = "text" rows="4" cols="60"></textarea>
 					</c:otherwise>
 				</c:choose>
-				<br/>
-				<input type = "submit" value = "コメント"/>
+				</div>
+				<div class = "comSend">
+					<a href = "#" class = "submit">
+						<span class = "submit-inner">
+						<input type = "submit" value = "コメント"/>
+						</span>
+					</a>
+				</div>
 			</form>
-			---------------------------------------------------------------------------------------------
-			<br/><br/>
+			</div>
 			</div>
 		</div>
 	</c:forEach>
-	
+
 </div>
 </body>
 </html>
