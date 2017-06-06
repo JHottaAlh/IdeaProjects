@@ -1,18 +1,186 @@
 @CHARSET "UTF-8";
 
-
+/* main-contentsは中央寄せ */
+/* contentsは左寄せのページに使用 */
 
 h1 {
+	font-weight: large;
+}
+h2 {
 	font-weight: normal;
 }
+div {
+	margin-bottom: 1rem;
+}
+p {
+	overflow: hidden; 
+	padding: 4px 0px;
+}
+form {
+	padding: 10px 0px;
+	margin: 10px;
+}
+select {
+	
+}
+/* 日付選択のレイアウト */
+.date {
+	
+}
 
-body {  
+.errorMessages {
+	font-weight: bold;
+	color: #FF1493;
+}
+a {
+	color: #ffcc33;
+	text-decoration: none;
+}
+
+input:-webkit-autofill {
+	box-shadow: 0 0 0 1000px #fff inset;
+}
+/* ページ全体の設定 */
+body {
 	font-family: Helvetica , "游ゴシック" , "Yu Gothic" , sans-serif;
-	color: #333333;
-}  
+	color: #ffffff;
+	background-color: #333333;
+}
 
 /*ログイン画面*/
 
-#login {
+#main-contents {
 	text-align: center;
+	position: relative;
+	top: 50%;
+	-webkit-transform: translateY(-30%); /* Safari用 */
+	transform: translateY(30%);
 }
+
+.login-main {
+	width: 400px;
+	padding: 10px;
+	text-align: center;
+	margin:0 auto;
+	border-radius: 5px;
+	-moz-border-radius: 5px;    /* 古いFirefox */
+   -webkit-border-radius: 5px; /* 古いSafari,Chrome */
+}
+
+
+#main-contents form{
+	width: 300px;
+	margin:0 auto;
+}
+
+
+/* テキストエリアのレイアウト */
+.form input,textarea {
+	color: #ffffff;
+    width: 100%;
+    padding: 13px;
+    box-sizing: border-box;
+    border: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: rgba(255,255,255,0.0);						/* テキストエリアの透過 */
+    border-bottom: 1px solid #ffffff;					
+}
+
+/* ログイン送信ボタンのレイアウト(オートコンプリートが未実装) */
+.send input,textarea {
+	color: #ffcc33;
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    border: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: rgba(255,255,255,0.0);
+}
+input:focus,textarea:focus { outline: none;}						/* フォーカスのデフォルト設定を無しに */
+input[type=radio], input[type=checkbox]{ display: none;}
+
+
+/* テキストエリアのアニメーション */
+.input_text {
+	border-bottom: 1px solid #ffffff;
+	box-shadow: -999px 5px 0px #333333;
+	-webkit-transition: all 500ms;
+	transition: all 500ms;
+}
+.input_text:focus {
+	box-shadow: 0px 5px 0px #ffffff;		/* ボーダーラインアニメーションの色指定 */
+	-webkit-transition: all 500ms;
+	transition: all 500ms;
+}
+
+/* homeのレイアウト */
+
+/* メニューバーを常に上部表示 */
+#contents {
+	padding-left: 5%;
+	margin-top: 60px;
+	text-align: left;
+}
+.top-menu {
+	background-color: rgba(0,0,0,0.5);
+	line-height: 50px;						/* テキストが一行のみの高さ中央揃え */
+	height: 50px;
+	width: 100%;
+	position: fixed;
+    top: 0;
+    left:0;
+}
+
+
+.edit {
+	padding-left: 5%;
+	text-align: left;
+	float: left;
+}
+
+.logout {
+	padding-right: 5%;
+	text-align: right;
+	float: right;
+}
+
+/* サイドメニュー*/
+#sideMenu {
+	padding-right: 5%;
+	float: right;
+	width: 20%;
+}
+
+/* 記事サイズ */
+#main {
+	float: left;
+	width: 70%;
+	background-color: rgba(255,255,255,0.2);
+	border-radius: 3px;
+}
+
+/* 記事全体設定 */
+.post {
+	padding-left: 10px;
+}
+
+.title {
+	width: 20%;
+	float: left;
+}
+.title h1 {
+	font-weight: x-large;
+	color: #ffcc33;
+}
+.title .mainText {
+	width: 80%;
+	float: left;
+}
+
+
+
+
+
+
