@@ -1,0 +1,62 @@
+@CHARSET "UTF-8";
+
+.button {
+  border: 1px solid #eee;
+  padding: 10px 40px;
+  position: relative;
+}
+/* Effect1
+ *************************************** */
+/* 擬似要素の共通スタイル */
+.alertSubmit::after,
+.alertSubmit::before,
+.alertSubmit-inner::after,
+.alertSubmit-inner::before {
+  background-color: #FF1493;
+  content: '';
+  display: block;
+  
+  z-index: 10;
+  transition: all .3s ease;
+  -webkit-transition: all .3s ease;
+}
+/* 左上へ配置 */
+.alertSubmit::after {
+    height: 1px;
+    left: -1px;
+    top: -1px;
+    width: 0px;
+}
+/* 右下へ配置 */
+.alertSubmit::before {
+  bottom: -1px;
+  height: 1px;
+  right: -1px;
+  width: 0px;
+}
+/* 左下へ配置 */
+.alertSubmit-inner::after {
+  bottom: -1px;
+  height: 0px;
+  left: -1px;
+  width: 1px;
+}
+/* 右下へ配置 */
+.alertSubmit-inner::before {
+  height: 0px;
+  right: -1px;
+  top: -1px;
+  width: 1px;
+}
+
+/* hover */
+.alertSubmit:hover::after,
+.alertSubmit:hover::before {
+  width: 100%;
+  width: calc(100% + 1px);
+}
+.alertSubmit:hover .alertSubmit-inner::after,
+.alertSubmit:hover .alertSubmit-inner::before {
+  height: 100%;
+  height: calc(100% + 1px);
+}

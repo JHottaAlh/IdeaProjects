@@ -11,7 +11,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="./css/submit.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="./css/alertSubmit.css" rel="stylesheet" type="text/css" media="screen" />
 <link href="./css/main.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src='<c:url value="/js/commentCountdown.js"/>'></script>
 <script type = "text/javascript">
 <!--
 //ユーザー状態切り替え時の確認ダイアログ(post)
@@ -80,15 +83,19 @@ function commentDisp(){
 				<br/>
 			</div>
 		</div>
-	<%-- 新規投稿へのリンク --%>
+	<%-- サイドメニュー --%>
 	<div id = "sideMenu">
 		<div class = "menu">
+			<h1>Menu</h1>
+			<span class = "menuLink">
 			<a href = "newpost">新規投稿</a>
+			</span>
 		</div>
 		<%-- 記事のソートをするブロック --%>
 		<div class = "postSort">
 			<form action = "index.jsp" method = "get">
 			<div class = "select">
+				<p>カテゴリ : </p>
 				<select id = "category" name = "category">
 				<option value = "">未選択</option>
 				<c:forEach items = "${ categories }" var = "categories">
@@ -100,9 +107,15 @@ function commentDisp(){
 				</c:forEach>
 				</select>
 			</div>
-			<div class = "date">
-				<input type ="date" class = "date" id = "oldDate" name = "oldDate" value = "${ oldDate }">
-				<input type ="date" class = "date" id = "latestDate" name = "latestDate" value = "${ latestDate }">
+			<div class = "sortDate">
+				<div class = "oldDate">
+					<p>開始日 : </p>
+					<input type ="date" class = "date" id = "oldDate" name = "oldDate" value = "${ oldDate }">
+				</div>
+				<div class = "latestDate">
+					<p>終了日 : </p>
+					<input type ="date" class = "date" id = "latestDate" name = "latestDate" value = "${ latestDate }">
+				</div>
 			</div>
 			<div class = "send">
 				<a href = "#" class = "submit">
@@ -123,57 +136,43 @@ function commentDisp(){
 				<div class = "title">
 					<h1 style="display: inline">Title : </h1><p style="display: inline"><c:out value = "${ message.title }"/></p>
 				</div>
+			<%-- 情報セキュリティ部または投稿主のみ投稿を削除できるようif文を追加 --%>
+			<%-- 社員が投稿した場合その店舗の支店長は投稿削除できるようにもする --%>
+			<c:choose>
+			<c:when test = "${ (loginUser.department_id == 2 || loginUser.id == message.user_id) ||
+				(message.branch_id == loginUser.branch_id && loginUser.department_id == 3) }">
+			<%-- 支店長が配下の社員の記事を削除できるようにする --%>
+			<form action = "./" method = "post" class = "alertSend">
+				<input type = "hidden" name = "id" id = "id" value = "${ message.id }"/>
+				<input type = "hidden" name = "user_id" id = "user_id" value = "${ message.user_id }"/>
+				<span class = "alertSubmit">	
+					<input type = "submit" value = "投稿削除" class = "alertSubmit-inner" onClick = "return postDisp()"/>	
+				</span>
+			</form>
+			</c:when>
+			<c:otherwise>
+				<div class = "deleteNull">
+				</div>
+			</c:otherwise>
+			</c:choose>
+			<div class = "postInfo">
 				<div class = "category">カテゴリ : <c:out value = "${ message.category }"/></div>
 				<div class = "date"><fmt:formatDate value = "${ message.timed_at }" pattern = "yyyy/MM/dd/ HH:mm"/></div>
 				<div class = "name">投稿者 : <p style="display: inline"><c:out value = "${ message.name }"/></p></div>
-				<%-- taglib fn:splitで文字列中の改行で区切ってforEachで一行ずつ表示 --%>
-				<div class = "postText">
-					<h2 style="display: inline">Text</h2>
-				</div>
-				<div class = "text">
-					<c:forEach items = "${ fn:split(message.text,'
-					') }" var = "arr">
-					<c:out value = "${ arr }"/><br/>
-					</c:forEach>
-				</div>
-
-
-
-			<%-- 情報セキュリティ部または投稿主のみ投稿を削除できるようif文を追加 --%>
-			<%-- 社員が投稿した場合その店舗の支店長は投稿削除できるようにもする --%>
-			<c:if test = "${ (loginUser.department_id == 2 || loginUser.id == message.user_id) ||
-				(message.branch_id == loginUser.branch_id && loginUser.department_id == 3) }">
-			<%-- 支店長が配下の社員の記事を削除できるようにする --%>
-			<form action = "./" method = "post">
-				<input type = "hidden" name = "id" id = "id" value = "${ message.id }"/>
-				<input type = "hidden" name = "user_id" id = "user_id" value = "${ message.user_id }"/>
-				<input type = "submit" value = "削除" onClick = "return postDisp()"/>
-			</form>
-			</c:if>
-			<%-- コメント表示欄 --%>
-			<c:forEach items = "${ comments }" var = "comment">
-				<c:if test = "${ comment.post_id == message.id }">
-					<div class = "comment">
-						<div class = "comName"><c:out value = "${ comment.name }"/></div>
-						<div class = "comTimed_at"><fmt:formatDate value = "${ comment.timed_at }" pattern = "yyyy/MM/dd/ HH:mm"/></div>
-						<div class = "comText">
-							<c:forEach items = "${ fn:split(comment.text, '
-							') }" var = "arrC">
-							<c:out value = "${ arrC }"/><br />
-							</c:forEach>
-						</div><br/>
-					<%-- コメントの削除機能 --%>
-					<%-- 情報セキュリティ部または投稿者は削除できる --%>
-					<c:if test = "${ loginUser.department_id == 2 || loginUser.id == comment.user_id }">
-						<form action = "commentdelete" method = "post">
-						<input type = "hidden" name = "id" id = "id" value = "${ comment.id }"/>
-						<input type = "hidden" name = "user_id" id = "user_id" value = "${ comment.user_id }"/>
-						<input type = "submit" value = "削除" onClick = "return commentDisp()"/>
-						</form>
-					</c:if>
-				</div>
-				</c:if>
-			</c:forEach>
+			</div>
+			
+			<%-- taglib fn:splitで文字列中の改行で区切ってforEachで一行ずつ表示 --%>
+			<div class = "postText">
+				<h1 style="display: inline">Text</h1>
+			</div>
+			<div class = "text">
+				<c:forEach items = "${ fn:split(message.text,'
+				') }" var = "arr">
+				<span class = "Text">
+				<c:out value = "${ arr }"/><br/>
+				</span>
+				</c:forEach>
+			</div>
 			<%-- コメント投稿フォーム --%>
 			<div class = "comForm">
 			<form action = "comment" method = "post" class = "comFormtag">
@@ -183,16 +182,20 @@ function commentDisp(){
 				<div class = "comTitle">
 					<h2 style="display: inline">Comment</h2>
 				</div>
+				<div class = "commentForm">
 				<c:choose>
 					<c:when test = "${ post_id == message.id }">
 						<textarea name = "text" id = "text" rows="4" cols="60"><c:out value = "${ text }"/></textarea>
-					<c:remove var = "text" scope = "session"/>
-					<c:remove var = "post_id" scope = "session"/>
+						<div class = "count">0</div>
+						<c:remove var = "text" scope = "session"/>
+						<c:remove var = "post_id" scope = "session"/>
 					</c:when>
 					<c:otherwise>
-						<textarea name = "text" id = "text" rows="4" cols="60"></textarea>
+						<textarea name = "text" id = "text" rows="4" cols="60" placeholder="ここにコメントを記入"></textarea>
+						<div class = "count">0</div>
 					</c:otherwise>
 				</c:choose>
+				</div>
 				</div>
 				<div class = "comSend">
 					<a href = "#" class = "submit">
@@ -202,6 +205,39 @@ function commentDisp(){
 					</a>
 				</div>
 			</form>
+			</div>
+			<%-- コメント表示欄 --%>
+			<div class = "commentList">
+				<div class = "commentListTitle">
+					<h2 style="display: inline">CommentList</h2>
+				</div>
+				<c:forEach items = "${ comments }" var = "comment">
+					<c:if test = "${ comment.post_id == message.id }">
+						<div class = "comment">
+							<div class = "comDate"><fmt:formatDate value = "${ comment.timed_at }" pattern = "yyyy/MM/dd/ HH:mm"/></div>
+							<div class = "comName"><p style="display: inline"><c:out value = "${ comment.name }"/></p></div>
+							<div class = "comText">
+								<c:forEach items = "${ fn:split(comment.text, '
+								') }" var = "arrC">
+								<c:out value = "${ arrC }"/><br />
+								</c:forEach>
+							</div><br/>
+						<%-- コメントの削除機能 --%>
+						<%-- 情報セキュリティ部または投稿者は削除できる --%>
+						<c:if test = "${ loginUser.department_id == 2 || loginUser.id == comment.user_id }">
+						<div  class = "comAlertSend">
+							<form action = "commentdelete" method = "post">
+							<input type = "hidden" name = "id" id = "id" value = "${ comment.id }"/>
+							<input type = "hidden" name = "user_id" id = "user_id" value = "${ comment.user_id }"/>
+							<span class = "alertSubmit">	
+								<input type = "submit" value = "コメント削除" class = "alertSubmit-inner" onClick = "return postDisp()"/>	
+							</span>
+							</form>
+						</div>
+						</c:if>
+					</div>
+					</c:if>
+				</c:forEach>
 			</div>
 			</div>
 		</div>

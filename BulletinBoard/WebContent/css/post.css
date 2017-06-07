@@ -1,0 +1,102 @@
+@CHARSET "UTF-8";
+
+.errorMessages {
+	padding-left: 10px;
+}
+.Post {
+	margin-right: 5%;
+}
+
+/* 新規投稿のTitle部分のレイアウト */
+.postDiv {
+	height: 70px;
+	border-bottom: 1px solid #ffcc33;
+	margin-bottom: 40px;
+}
+.postH1 {
+	margin: 0;
+}
+.postTitle {
+	margin: 0;
+}
+.postH1 h1 {
+	font-weight: x-large;
+	color: #ffcc33;
+	margin: 0;
+}
+.postTitle input,textarea {
+	color: #ffffff;
+	width: 100%;
+	height: 37px;
+	padding-left: 2px;
+	font-size: large;
+	font-weight: bold;
+    box-sizing: border-box;
+    border: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: rgba(255,255,255,0.0);						/* テキストエリアの透過 */
+}
+.titlecount {
+	text-align: right;
+}
+
+/* 新規投稿のCategory部分のレイアウト */
+.postCategory {
+	border-bottom: 1px solid #ffcc33;
+	margin-bottom: 40px;
+	padding-bottom: 10px;
+}
+
+.cateH2 h2 {
+	font-size: large;
+	font-weight: bold;
+	color: #ffcc33;
+	margin: 0;
+}
+
+/* 新規投稿のText部分のレイアウト */
+.newPostText {
+	padding-bottom: 10px;
+}
+.textH2 {
+	margin: 0;
+}
+.textH2 h2 {
+	font-size: large;
+	font-weight: bold;
+	color: #ffcc33;
+	margin: 0;
+}
+
+.newPostText input,textarea {
+	color: #ffffff;
+	height: 150px;
+	width: 100%;
+    padding: 5px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    border: none;
+    -webkit-appearance: none;
+    appearance: none;
+	background-color: rgba(0,0,0,0.4);
+}
+.count {
+	text-align: right;
+}
+
+.postAlertSend {
+	width: 100px;
+	text-align: center;
+}
+.postAlertSend input,submit{
+	color: #ffcc33;
+	font-size: large;
+	font-weight: bold;
+    padding: 15px 0;
+    box-sizing: border-box;
+    border: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: rgba(255,255,255,0.0);
+}

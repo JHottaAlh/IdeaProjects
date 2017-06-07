@@ -28,6 +28,7 @@ select {
 
 }
 
+
 .errorMessages {
 	font-weight: bold;
 	color: #FF1493;
@@ -74,7 +75,7 @@ body {
 }
 
 
-/* テキストエリアのレイアウト */
+/* テキストエリアのレイアウト(オートコンプリートが未実装) */
 .form input,textarea {
 	color: #ffffff;
     width: 100%;
@@ -87,8 +88,8 @@ body {
     border-bottom: 1px solid #ffffff;
 }
 
-/* ログイン送信ボタンのレイアウト(オートコンプリートが未実装) */
-.send input,textarea {
+/* ログイン送信ボタンのレイアウト */
+.send input,submit {
 	color: #ffcc33;
     width: 100%;
     padding: 15px;
@@ -132,7 +133,9 @@ input[type=radio], input[type=checkbox]{ display: none;}
     top: 0;
     left:0;
 }
-
+.return {
+	padding-left: 5%;
+}
 
 .edit {
 	padding-left: 5%;
@@ -152,12 +155,40 @@ input[type=radio], input[type=checkbox]{ display: none;}
 	float: right;
 	width: 20%;
 }
+.menu {
+	background-color: rgba(255,255,255,0.1);
+	border-radius: 3px;
+	padding: 10px;
+}
+.menu h1 {
+	margin: 0;
+	margin-bottom: 5px;
+	text-align: center;
+	color: #ffcc33;
+	border-bottom: 1px solid #ffcc33;
+}
+.postSort {
+	background-color: rgba(255,255,255,0.1);
+	border-radius: 3px;
+}
+.select p {
+	margin: 0;
+	color: #ffcc33;
+}
+.oldDate p {
+	margin: 0;
+	color: #ffcc33;
+}
+.latestDate p {
+	margin: 0;
+	color: #ffcc33;
+}
 
 /* 記事サイズ */
 #main {
 	float: left;
 	width: 70%;
-	background-color: rgba(255,255,255,0.2);
+	background-color: rgba(255,255,255,0.1);
 	border-radius: 3px;
 }
 
@@ -180,6 +211,46 @@ input[type=radio], input[type=checkbox]{ display: none;}
 	font-weight: bold;
 	display:inline;
 }
+
+
+/* 投稿削除のレイアウト */
+.alertSend{
+	float: left;
+	width: 70%;
+	height: 46px;
+	margin-left: 0;
+	margin-right: 0;
+	padding: 0;
+}
+.alertSend input,textarea {
+	color: #FF1493;
+	text-align: left;
+	font-size: large;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: rgba(255,255,255,0.0);
+}
+.alertSubmit-inner {
+	height: 46px;
+}
+.deleteNull{
+	float: left;
+	width: 70%;
+	height: 46px;
+	margin-left: 0;
+	margin-right: 0;
+	padding: 0;	
+}
+
+/* 記事の情報(カテゴリとか) */
+.postInfo {
+	float: left;
+	width: 30%;
+	margin-bottom: 0;
+}
 .category {
 	text-align: right;
 	margin-bottom: 0;
@@ -197,45 +268,63 @@ input[type=radio], input[type=checkbox]{ display: none;}
 	color: #ffcc33;
 	display:inline;
 }
+
+/* 記事レイアウト */
 .postText {
 	border-bottom: 1px solid #ffcc33;
-	margin-bottom: 0;
+	margin-bottom: 5px;
 	width: 40%;
 }
-.postText h2 {
-	font-size: large;
+.postText h1 {
+	font-size: x-large;
 	color: #ffcc33;
+}
+.text {
+	
+	background-color: rgba(0,0,0,0.4);
+	border-radius: 3px;
+}
+.Text {
+	padding: 5px;
 }
 
 /* コメント関連 */
-.comFormtag {
-	margin-left: 0;
-}
-
 .comForm{
+	float: left;
 	width: 40%;								/* フォームの大きさを指定 */
 	margin-left: 0;
 }
+.comFormtag {
+	margin-left: 0;
+}
+.comForm form {
+	margin: 0;
+}
 .comTitle {
 	border-bottom: 1px solid #ffcc33;
-	margin-bottom: 0;
+	margin-bottom: 5px;
 }
 .comTitle h2 {
 	font-size: large;
 	color: #ffcc33;
 }
 
-.textForm input,textarea {
+.commentForm input,textarea {
 	color: #ffffff;
-    padding: 13px;
+	width: 100%;
+    padding: 5px;
+    border-radius: 3px;
     box-sizing: border-box;
     border: none;
     -webkit-appearance: none;
     appearance: none;
-	background-color: rgba(255,255,255,0.5);
+	background-color: rgba(0,0,0,0.4);
+}
+.count {
+	text-align: right;
 }
 
-.comSend input,textarea {
+.comSend input,submit {
 	color: #ffcc33;
     padding: 15px;
     box-sizing: border-box;
@@ -247,3 +336,58 @@ input[type=radio], input[type=checkbox]{ display: none;}
 .comSend {
 	text-align: center;
 }
+
+
+
+/* コメントリスト */
+.commentList {
+	float: right;
+	width: 50%;
+	padding: 10px 0px;
+}
+.commentListTitle {
+	border-bottom: 1px solid #ffcc33;
+	margin-bottom: 0;
+}
+.commentListTitle h2 {
+	font-size: large;
+	color: #ffcc33;
+}
+.comDate {
+	text-align: right;
+	margin-bottom: 0;
+}
+.comName {
+	margin-bottom: 0;
+}
+.comName p {
+	color: #ffcc33;
+	display:inline;
+}
+.comText {
+	margin: 0;
+}
+.comment {
+	border-bottom: 1px solid #ffcc33;
+	margin-bottom: 0;
+}
+.comAlertSend{
+	margin: 0;
+	margin-bottom: 2px;
+	padding: 0;
+}
+.comAlertSend input,submit {
+	color: #FF1493;
+	text-align: left;
+	font-size: large;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: rgba(255,255,255,0.0);
+}
+.comAlertSend form {
+	margin: 0;
+}
+
