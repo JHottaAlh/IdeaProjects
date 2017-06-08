@@ -7,7 +7,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="./css/submit.css" rel="stylesheet" type="text/css" media="screen" />
 <link href="./css/alertSubmit.css" rel="stylesheet" type="text/css" media="screen" />
+<%-- <link href="./css/deleteButton.css" rel="stylesheet" type="text/css" media="screen" /> --%>
 <link href="./css/main.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="./css/userControl.css" rel="stylesheet" type="text/css" media="screen" />
 <script type = "text/javascript">
 <!--
 //ユーザー状態切り替え時の確認ダイアログ(is_stopped)
@@ -26,13 +28,18 @@ function disp(){
 }
 -->
 </script>
-<title>Insert title here</title>
+<title>ユーザー管理画面</title>
 </head>
 <body>
-<div class = "top-menu">
-<a href = "signup">ユーザー登録</a>
-<a href = "./">戻る</a>
-</div>
+<div id = "center-contents">
+	<div class = "top-menu">
+		<div class = "return">	
+		<a href ="./">戻る</a>
+		</div>
+		<div class = "signupMenu">
+		<a href = "signup">ユーザー登録</a>
+		</div>
+	</div>
 <%-- エラーメッセージ --%>
 <c:if test = "${ not empty errorMessages }">
 	<div class = "errorMessages">
@@ -47,20 +54,38 @@ function disp(){
 </c:if>
 
 <div class = "member-list">
-	<table border="1">
-	<tr>
-	<td>ログインID</td> <td>ユーザー名</td> <td>支店</td> <td>部署・役職</td> <td>状態</td> <td>編集</td>
+	<table class = "table">
+	<tr class = "tr_name">
+	<td>ログインID</td> <td>ユーザー名</td> <td>支店</td> <td>部署・役職</td> <td>状態</td> <td></td>
 	</tr>
 
 	<%-- 登録された社員の数だけリストを表示する(未実装) --%>
 	<%--ServletでUserControl(Beans)型のuserDataリストに格納したデータをdata変数に格納 --%>
  	<c:forEach items = "${ userData }" var = "data">
- 		<tr>
- 			<td><c:out value = "${ data.login_id }"/></td>
- 			<td><c:out value = "${ data.name }"/></td>
- 			<td><c:out value = "${ data.branch_name }"/></td>
- 			<td><c:out value = "${ data.department_name }"/></td>
- 			<td>
+ 		<tr class = "tr_data">
+ 			<%-- ログインID --%>
+ 			<td class = "td_login_id">
+ 			<c:choose>
+ 				<c:when test = "${ data.is_stopped == 0 }">
+ 				<c:out value = "${ data.login_id }"/>
+ 				</c:when>
+ 				<c:otherwise>
+ 				<p style="display: inline">●</p><c:out value = "${ data.login_id }"/>
+ 				</c:otherwise>
+ 			</c:choose>
+ 			</td>
+ 			
+ 			<%-- ユーザー名 --%>
+ 			<td class = "td_name"><c:out value = "${ data.name }"/></td>
+ 			
+ 			<%-- 支店名 --%>
+ 			<td class = "td_branch"><c:out value = "${ data.branch_name }"/></td>
+ 			
+ 			<%-- 部署・役職名 --%>
+ 			<td class = "td_department"><c:out value = "${ data.department_name }"/></td>
+ 			
+ 			<%-- ユーザーの状態 --%>
+ 			<td class = "td_is_stopped">
  			<c:if test = "${ loginUser.id != data.id }">
  				<form action = "isstopped" method = "post">
  					<c:if test = "${ data.is_stopped == 0 }">
@@ -76,7 +101,9 @@ function disp(){
  				</form>
  			</c:if>
  			</td>
- 			<td>
+ 			
+ 			<%-- ユーザーの編集 --%>
+ 			<td class = "td_userEdit">
  			<form action = "useredit" method = "get">
  			<input type = "hidden" name = "id" id = "id" value = "${ data.id }"/>
  			<input type = "submit" value = "編集"/>
@@ -87,6 +114,6 @@ function disp(){
 
 	</table>
 </div>
-
+</div>
 </body>
 </html>

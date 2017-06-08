@@ -47,6 +47,11 @@ body {
 	color: #ffffff;
 	background-color: #333333;
 }
+button, input, select, textarea {
+  font-family : inherit;
+}
+
+
 
 /*ログイン画面*/
 
@@ -79,7 +84,7 @@ body {
 .form input,textarea {
 	color: #ffffff;
     width: 100%;
-    padding: 13px;
+    padding: 10px;
     box-sizing: border-box;
     border: none;
     -webkit-appearance: none;
@@ -135,6 +140,8 @@ input[type=radio], input[type=checkbox]{ display: none;}
 }
 .return {
 	padding-left: 5%;
+	text-align: left;
+	float: left;
 }
 
 .edit {

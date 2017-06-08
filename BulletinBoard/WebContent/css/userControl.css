@@ -1,0 +1,70 @@
+@CHARSET "UTF-8";
+
+#center-contents {
+	margin-left: 5%;
+	margin-right: 5%;
+	margin-top: 60px;
+	text-align: left;
+}
+
+.top-menu {
+	background-color: rgba(0,0,0,0.5);
+	line-height: 50px;						/* テキストが一行のみの高さ中央揃え */
+	height: 50px;
+	width: 100%;
+	position: fixed;
+    top: 0;
+    left:0;
+}
+
+.signupMenu {
+	padding-right: 5%;
+	text-align: right;
+	float: right;
+}
+
+.member-list {
+	margin:0 auto;
+}
+.table {
+	width: 100%;
+	text-align: center;
+	border-collapse: collapse;
+}
+
+
+.member-list p {
+	display:inline;
+	color: #FF1493;
+}
+.tr_name {
+	color: #ffcc33;
+	font-size: large;
+	font-weight: bold;
+	background-color: rgba(0,0,0,0.4);
+	border-radius: 3px;
+}
+.tr_data {
+	border-bottom: 1px solid #ffcc33;
+}
+.td_login_id {
+	width: 20%;
+}
+.td_name {
+	width: 20%;
+	color: #ffcc33;
+	font-size: large;
+	font-weight: bold;
+}
+.td_branch {
+	width: 20%;
+}
+.td_departmenrt {
+	width: 20%;
+}
+.td_is_stopped {
+	width: 10%;
+}
+.td_userEdit {
+	width: 10%;
+}

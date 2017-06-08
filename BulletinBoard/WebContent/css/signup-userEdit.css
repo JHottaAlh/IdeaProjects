@@ -1,0 +1,83 @@
+@CHARSET "UTF-8";
+
+.return {
+	padding-left: 5%;
+	text-align: left;
+	float: left;
+}
+
+.userDelete {
+	position: relative;
+	height: 50px;
+	padding-right: 5%;
+	text-align: right;
+	float: right;
+}
+.userDelete form {
+	margin: 0;
+	padding: 0;
+	height: 50px;
+}
+.userDelete input,submit {
+	color: #ffcc33;
+    padding: 15px;
+    box-sizing: border-box;
+    border: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: rgba(255,255,255,0.0);
+}
+
+#contents {
+	margin-left: 30%;
+	margin-right: 30%;
+	padding: 0;
+}
+
+.title {
+	text-align: center;
+}
+
+.register {
+	border-bottom: 1px solid #ffcc33;
+	margin-bottom: 30px;
+}
+.register p {
+	display:inline;
+}
+.register input,textarea {
+	margin-top: 3px;
+	color: #ffffff;
+	width: 100%;
+    box-sizing: border-box;
+    border: none;
+    -webkit-appearance: none;
+    appearance: none;
+    border-bottom: 1px solid #ffffff;
+    background-color: rgba(0,0,0,0.4);
+    border-radius: 3px;
+}
+.desig {
+	font-size: 70%;
+	color: #FF1493;
+}
+
+.submit {
+	width: 50%;
+	margin:0 auto;
+}
+.submit-inner {
+	text-size: large;
+	text-weight: bold;
+}
+
+.submit input,submit {
+	color: #ffcc33;
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    border: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: rgba(255,255,255,0.0);
+}

@@ -1,0 +1,45 @@
+@CHARSET "UTF-8";
+
+body:before{
+  content:'';
+  height:100%;
+  display:inline-block;
+  vertical-align:middle;
+}
+
+
+
+input,submit{
+  background:#FF1493;
+  color:#fff;
+  border:none;
+  height:60px;
+  font-size:1.6em;
+  padding:0 2em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+}
+input,submit:hover{
+  background:#fff;
+  color:#FF1493;
+}
+input,submit:before,input,submit:after{
+  content:'';
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #FF1493;
+  transition:400ms ease all;
+}
+input,submit:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+input,submit:hover:before,input,submit:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}

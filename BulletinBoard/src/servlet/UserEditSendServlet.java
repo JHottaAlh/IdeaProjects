@@ -16,6 +16,7 @@ import org.apache.commons.lang.StringUtils;
 
 import model.User;
 import model.UserControl;
+import service.LoginService;
 import service.UserControlService;
 import service.UserService;
 import utils.CipherUtil;
@@ -56,7 +57,18 @@ public class UserEditSendServlet extends HttpServlet {
 			
 			//UserService型のupdateメソッドを実行
 			new UserService().update(editUser);
-		
+			
+			//自分自身の変更をしている時にパスワードが変更されているとNullPointerになるので
+			//更新が終わったらセッションを更新する
+			User loginUserCheck = (User) request.getSession().getAttribute("loginUser");
+			if(editUser.getId() == loginUserCheck.getId()){
+				String login_id = editUser.getLogin_id();
+				String password = editUser.getPassword();
+				LoginService loginService = new LoginService();
+				User user = loginService.login(login_id, password);
+				session.setAttribute("loginUser", user);
+			}
+			
 			response.sendRedirect("usercontrol");
 		}else{
 			session.setAttribute("errorMessages", messages);
@@ -102,8 +114,8 @@ public class UserEditSendServlet extends HttpServlet {
 		if(!password.equals(password1)){
 			messages.add("パスワードが一致しません");
 		}
-		if(password.length() != 0 && (6 > password.length() || 255 < password.length())){
-			messages.add("パスワードは6文字以上255文字以下で入力してください");
+		if(password.length() != 0 && (6 > password.length() || 20 < password.length())){
+			messages.add("パスワードは6文字以上20文字以下で入力してください");
 		}
 		
 		if(branch_id == 1 && (department_id != 1 && department_id != 2)){

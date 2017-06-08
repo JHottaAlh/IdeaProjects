@@ -34,7 +34,7 @@
 		<c:remove var = "errorMessages" scope = "session"/>
 	</c:if>
 	<div class = "Post">
-		<form action = "newpost" method = "post">
+		<form action = "newpost" method = "post" autocomplete="off">
 			<div class = "postDiv">
 				<div class = "postH1">
 				<h1>Title</h1>

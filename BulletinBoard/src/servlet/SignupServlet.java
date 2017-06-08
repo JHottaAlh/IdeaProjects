@@ -106,8 +106,8 @@ public class SignupServlet extends HttpServlet {
 			if(!password.equals(password1)){
 				messages.add("パスワードが一致しません");
 			}
-			if(password.length() != 0 && (6 > password.length() || 255 < password.length())){
-				messages.add("パスワードは6文字以上255文字以下で入力してください");
+			if(password.length() != 0 && (6 > password.length() || 20 < password.length())){
+				messages.add("パスワードは6文字以上20文字以下で入力してください");
 			}
 		}
 		if(branch_id == 999){

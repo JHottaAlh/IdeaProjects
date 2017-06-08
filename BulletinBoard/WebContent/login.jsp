@@ -29,9 +29,9 @@
 	<%-- セッションスコープからエラーメッセージ文を破棄 --%>
 	<c:remove var = "errorMessages" scope = "session"/>
 </c:if>
-<form action = "login" method = "post">
+<form action = "login" method = "post" autocomplete="off">
 	<div class = "form">
-	<p><input type = "text" class = "input_text" name = "login_id" id = "login_id" value = "${ login_id }" placeholder="ユーザーID"><br /></p>
+	<p><input type = "text" class = "input_text" name = "login_id" id = "login_id" value = "${ login_id }" placeholder="ログインID"><br /></p>
 	<p><input type = "password" class = "input_text" name = "password" id = "password" placeholder="パスワード"><br /></p>
 	</div>
 	<div class = "send">

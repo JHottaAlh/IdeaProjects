@@ -33,7 +33,7 @@ public class HomeServlet extends HttpServlet {
 		String latestDate = request.getParameter("latestDate");
 
 		//初回ホーム移動時
-		if(category == null && oldDate == null && latestDate == null){
+		if(category == null && oldDate == null && latestDate == null || category == null){
 			List<UserMessage> sortMessages = new PostService().getMessage();
 			request.setAttribute("messages", sortMessages);
 		//初回以降の処理
@@ -43,13 +43,13 @@ public class HomeServlet extends HttpServlet {
 			request.setAttribute("latestDate", latestDate);
 
 			//oldDateが未選択だった場合一番古い投稿の日付を取得する
-			if(oldDate.isEmpty()){
+			if(oldDate == null || oldDate.isEmpty()){
 				UserMessage oldDateBeans = new PostService().oldDate();
 				oldDate = oldDateBeans.getTimed_at().toString();
 			}
 
 			//latestDateが未選択だった場合本日の日付を取得する
-			if(latestDate.isEmpty()){
+			if(latestDate == null || latestDate.isEmpty()){
 				Calendar c = Calendar.getInstance();
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				latestDate = sdf.format(c.getTime());
