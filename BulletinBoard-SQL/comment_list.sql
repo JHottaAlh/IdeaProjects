@@ -7,6 +7,8 @@ select
     post_id,
     comments.user_id,
     name
+    comments.branch_id,
+    comments.department_id
 from
 	users, posts, comments
 where
