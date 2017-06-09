@@ -6,7 +6,7 @@ select
     comments.updated_at,
     post_id,
     comments.user_id,
-    name
+    name,
     comments.branch_id,
     comments.department_id
 from
