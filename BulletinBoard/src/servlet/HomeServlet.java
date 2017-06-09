@@ -41,6 +41,15 @@ public class HomeServlet extends HttpServlet {
 			request.setAttribute("category", category);
 			request.setAttribute("oldDate", oldDate);
 			request.setAttribute("latestDate", latestDate);
+			
+			//終了日のみ入力されたら、その日以前までの投稿を表示
+			if(oldDate.isEmpty() && !latestDate.isEmpty()){
+				oldDate = "1000-01-01";
+			}
+			//開始日のみ入力されたら、その日以降の日付を表示
+			if(!oldDate.isEmpty() && latestDate.isEmpty()){
+				latestDate = "9999-99-99";
+			}
 
 			//oldDateが未選択だった場合一番古い投稿の日付を取得する
 			if(oldDate == null || oldDate.isEmpty()){
@@ -58,7 +67,7 @@ public class HomeServlet extends HttpServlet {
 			//日付を比較し、過去～未来の順に入れ替えてDaoに渡す
 			int ret = oldDate.compareTo(latestDate);
 			if(ret > 0){
-				oldDate += "23:59:59";
+				oldDate += " 23:59:59";
 				//カテゴリーが選択された場合
 				if(!category.isEmpty()){
 					List<UserMessage> sortMessages = new PostService().postSort(category, latestDate, oldDate);

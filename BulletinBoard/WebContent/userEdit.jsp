@@ -72,7 +72,7 @@ function userDisp(){
 			</div>
 			
 			<div class = "userName">
-				<p style="display: inline">ユーザー名</p><span class = "desig">　10文字以下　文字指定無し</span> 
+				<p style="display: inline">名称</p><span class = "desig">　10文字以下　文字指定無し</span> 
 				<input type = "text" id = "name" name = "name" value = "${ data.name }">
 			</div>
 			

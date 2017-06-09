@@ -14,6 +14,8 @@ public class Comment implements Serializable{
 	private int post_id;
 	private int user_id;
 	private String name;
+	private int branch_id;
+	private int department_id;
 	
 	public int getId() {return id;}
 	public void setId(int id) {this.id = id;}
@@ -35,5 +37,11 @@ public class Comment implements Serializable{
 	
 	public String getName() {return name;}
 	public void setName(String name) {this.name = name;}
+	
+	public int getBranch_id(){ return branch_id; }
+	public void setBranch_id(int branch_id){ this.branch_id = branch_id; }
+
+	public int getDepartment_id(){ return department_id; }
+	public void setDepartment_id(int department_id){ this.department_id = department_id; }
 
 }

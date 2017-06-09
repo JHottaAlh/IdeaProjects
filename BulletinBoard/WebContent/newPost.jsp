@@ -14,6 +14,27 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script type="text/javascript" src='<c:url value="/js/postCountdown.js"/>'></script>
 <script type="text/javascript" src='<c:url value="/js/titleCountdown.js"/>'></script>
+<script type = "text/javascript">
+<!-- 
+//文字数制限を越えていたらボタンを押せなくする
+function wupSubmit(){
+
+  //名前と感想の欄のテキストを変数に代入する
+  var title = document.send.elements[0].value.length();
+  var text = document.send.elements[1].value.length();
+  
+  //名前若しくは感想欄のどちらかが空かチェック
+  if ( ( title > 50 ) || ( text > 1000 ) )
+  {
+    //どちらかが当てはまれば、ボタンを押せなくする
+    document.send.elements[2].disabled = true;
+  }else{
+    //両方とも規定文字内であれば、ボタンを押せるようにする
+    document.send.elements[2].disabled = false;
+  } 
+}
+ -->
+ </script>
 <title>新規投稿</title>
 </head>
 <body>
@@ -34,13 +55,13 @@
 		<c:remove var = "errorMessages" scope = "session"/>
 	</c:if>
 	<div class = "Post">
-		<form action = "newpost" method = "post" autocomplete="off">
+		<form action = "newpost" method = "post" name = "send" autocomplete="off">
 			<div class = "postDiv">
 				<div class = "postH1">
 				<h1>Title</h1>
 				</div>
 				<div class = "postTitle">
-				<input type = "text" name = "title" id = "title" value = "${ contents.get(0) }" placeholder="ここに件名を記入"/>
+				<input type = "text" name = "title" id = "title" value = "${ contents.get(0) }" placeholder="ここに件名を記入" maxlength="50"/>
 				<div class = "titlecount">0</div>
 				</div>
 			</div>
@@ -62,7 +83,7 @@
 		<div class = "textH2">
 			<h2>Text</h2>
 		</div>
-		<textarea name="text" rows = "8" cols="50" id = "text"><c:out value = "${ contents.get(1) }"/></textarea>
+		<textarea name="text" rows = "8" cols="50" id = "text" maxlength="1000"><c:out value = "${ contents.get(1) }"/></textarea>
 		<div class = "count">0</div>
 	</div>
 	

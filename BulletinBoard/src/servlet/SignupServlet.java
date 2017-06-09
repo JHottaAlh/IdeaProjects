@@ -93,10 +93,10 @@ public class SignupServlet extends HttpServlet {
 		}
 		
 		if(name.isEmpty()){
-			messages.add("ユーザー名を入力してください");
+			messages.add("名称を入力してください");
 		}else{
 			if(10 < name.length()){
-				messages.add("ユーザー名は10文字以下で入力してください");
+				messages.add("名称は10文字以下で入力してください");
 			}
 		}
 		

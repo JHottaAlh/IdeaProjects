@@ -50,7 +50,7 @@ public class LoginAccessFilter implements Filter {
 					List<String> messages = new ArrayList<String>();
 					messages.add("該当するアカウントは管理者によって停止されています");
 					session.setAttribute("errorMessages", messages);
-					req.getRequestDispatcher("login").forward(request, response);
+					res.sendRedirect("login");
 					session.invalidate();//セッションの無効化
 					return;
 				}else{

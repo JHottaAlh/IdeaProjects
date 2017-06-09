@@ -38,11 +38,15 @@ public class CommentServlet extends HttpServlet {
 			int user_id = Integer.parseInt(request.getParameter("user_id"));
 			int post_id = Integer.parseInt(request.getParameter("post_id"));
 			String text = request.getParameter("text");
+			int branch_id = Integer.parseInt(request.getParameter("branch_id"));
+			int department_id = Integer.parseInt(request.getParameter("department_id"));
 
 			Comment comment = new Comment();
 			comment.setUser_id(user_id);
 			comment.setPost_id(post_id);
 			comment.setText(text);
+			comment.setBranch_id(branch_id);
+			comment.setDepartment_id(department_id);
 
 			CommentService commentService = new CommentService();
 			commentService.register(comment);

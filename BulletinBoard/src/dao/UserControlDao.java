@@ -22,7 +22,7 @@ public class UserControlDao {
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT * FROM user_control ");
 			//DESCはデータのソート機能
-			sql.append("ORDER BY id ASC");
+			sql.append("ORDER BY branch_id ASC, department_id ASC, id ASC");
 
 			//psには上述したSQL文が一行で記述されている
 			ps = connection.prepareStatement(sql.toString());

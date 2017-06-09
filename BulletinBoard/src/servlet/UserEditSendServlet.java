@@ -41,32 +41,33 @@ public class UserEditSendServlet extends HttpServlet {
 			User editUser = new User();
 			editUser.setId(Integer.parseInt(request.getParameter("id")));
 			editUser.setLogin_id(request.getParameter("login_id"));
+			editUser.setName(request.getParameter("name"));
+			editUser.setBranch_id(Integer.parseInt(request.getParameter("branch_id")));
+			editUser.setDepartment_id(Integer.parseInt(request.getParameter("department_id")));
+			
 			if(!StringUtils.isEmpty(request.getParameter("password"))){
 				//新規で登録される場合は暗号化して送信
 				editUser.setPassword(request.getParameter("password"));
 				String encPassword = CipherUtil.encrypt(editUser.getPassword());
 				editUser.setPassword(encPassword);
+				//UserService型のupdateメソッドを実行
+				new UserService().update(editUser);
+				
+				//自分自身の変更をしている時にパスワードが変更されているとNullPointerになるので
+				//更新が終わったらセッションを更新する
+				User loginUserCheck = (User) request.getSession().getAttribute("loginUser");
+				if(editUser.getId() == loginUserCheck.getId()){
+					String login_id = editUser.getLogin_id();
+					String password = request.getParameter("password");
+					LoginService loginService = new LoginService();
+					User user = loginService.login(login_id, password);
+					session.setAttribute("loginUser", user);
+				}
 			}else{
 				//パスワード未入力の場合もともとのパスワードをセット
 				//既に暗号化されているものを引っ張っているので再度暗号化はNG
 				editUser.setPassword(request.getParameter("password2"));
-			}
-			editUser.setName(request.getParameter("name"));
-			editUser.setBranch_id(Integer.parseInt(request.getParameter("branch_id")));
-			editUser.setDepartment_id(Integer.parseInt(request.getParameter("department_id")));
-			
-			//UserService型のupdateメソッドを実行
-			new UserService().update(editUser);
-			
-			//自分自身の変更をしている時にパスワードが変更されているとNullPointerになるので
-			//更新が終わったらセッションを更新する
-			User loginUserCheck = (User) request.getSession().getAttribute("loginUser");
-			if(editUser.getId() == loginUserCheck.getId()){
-				String login_id = editUser.getLogin_id();
-				String password = editUser.getPassword();
-				LoginService loginService = new LoginService();
-				User user = loginService.login(login_id, password);
-				session.setAttribute("loginUser", user);
+				new UserService().update(editUser);
 			}
 			
 			response.sendRedirect("usercontrol");
@@ -104,10 +105,10 @@ public class UserEditSendServlet extends HttpServlet {
 		}
 		
 		if(name.isEmpty()){
-			messages.add("ユーザー名を入力してください");
+			messages.add("名称を入力してください");
 		}else{
 			if(10 < name.length()){
-				messages.add("ユーザー名は10文字以下で入力してください");
+				messages.add("名称は10文字以下で入力してください");
 			}
 		}
 		

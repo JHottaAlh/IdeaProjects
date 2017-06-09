@@ -179,19 +179,21 @@ function commentDisp(){
 				<div class = "textForm">
 				<input type = "hidden" name = "user_id" id = "user_id" value = "${ loginUser.id }"/>
 				<input type = "hidden" id = "post_id" name = "post_id" value = "${ message.id }"/>
+				<input type = "hidden" id = "branch_id" name = "branch_id" value = "${ loginUser.branch_id }"/>
+				<input type = "hidden" id = "department_id" name = "department_id" value = "${ loginUser.department_id }"/>
 				<div class = "comTitle">
 					<h2 style="display: inline">Comment</h2>
 				</div>
 				<div class = "commentForm">
 				<c:choose>
 					<c:when test = "${ post_id == message.id }">
-						<textarea name = "text" id = "text" rows="4" cols="60"><c:out value = "${ text }"/></textarea>
+						<textarea name = "text" id = "text" rows="4" cols="60" maxlength="500"><c:out value = "${ text }"/></textarea>
 						<div class = "count">0</div>
 						<c:remove var = "text" scope = "session"/>
 						<c:remove var = "post_id" scope = "session"/>
 					</c:when>
 					<c:otherwise>
-						<textarea name = "text" id = "text" rows="4" cols="60" placeholder="ここにコメントを記入"></textarea>
+						<textarea name = "text" id = "text" rows="4" cols="60" placeholder="ここにコメントを記入" maxlength="500"></textarea>
 						<div class = "count">0</div>
 					</c:otherwise>
 				</c:choose>
@@ -224,13 +226,14 @@ function commentDisp(){
 							</div><br/>
 						<%-- コメントの削除機能 --%>
 						<%-- 情報セキュリティ部または投稿者は削除できる --%>
-						<c:if test = "${ loginUser.department_id == 2 || loginUser.id == comment.user_id }">
+						<c:if test = "${ (loginUser.department_id == 2 || loginUser.id == comment.user_id) ||
+							(comment.branch_id == loginUser.branch_id && loginUser.department_id == 3) }">
 						<div  class = "comAlertSend">
 							<form action = "commentdelete" method = "post">
 							<input type = "hidden" name = "id" id = "id" value = "${ comment.id }"/>
 							<input type = "hidden" name = "user_id" id = "user_id" value = "${ comment.user_id }"/>
 							<span class = "alertSubmit">	
-								<input type = "submit" value = "コメント削除" class = "alertSubmit-inner" onClick = "return postDisp()"/>	
+								<input type = "submit" value = "コメント削除" class = "alertSubmit-inner" onClick = "return commentDisp()"/>	
 							</span>
 							</form>
 						</div>

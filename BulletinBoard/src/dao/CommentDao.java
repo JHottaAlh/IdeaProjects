@@ -27,12 +27,16 @@ public class CommentDao {
 			sql.append(", updated_at");
 			sql.append(", post_id");
 			sql.append(", user_id");
+			sql.append(", branch_id");
+			sql.append(", department_id");
 			sql.append(")VALUES(");
 			sql.append("?");					//1.text
 			sql.append(",CURRENT_TIMESTAMP");	//timed_at
 			sql.append(",CURRENT_TIMESTAMP");	//updated_at
 			sql.append(", ?");					//2.post_id
 			sql.append(", ?");					//3.user_id
+			sql.append(", ?");					//4.branch_id
+			sql.append(", ?");					//5.department_id
 			sql.append(");");
 
 			ps = connection.prepareStatement(sql.toString());
@@ -40,6 +44,8 @@ public class CommentDao {
 			ps.setString(1, comment.getText());			//1.text
 			ps.setInt(2, comment.getPost_id());			//2.post_id
 			ps.setInt(3, comment.getUser_id());			//3.user_id
+			ps.setInt(4, comment.getBranch_id());		//4.branch_id
+			ps.setInt(5, comment.getDepartment_id());	//5.department_id
 
 			ps.executeUpdate();
 
@@ -82,6 +88,8 @@ public class CommentDao {
 				int post_id = rs.getInt("post_id");
 				int user_id = rs.getInt("user_id");
 				String name = rs.getString("name");
+				int branch_id = rs.getInt("branch_id");
+				int department_id = rs.getInt("department_id");
 
 
 				Comment comment = new Comment();
@@ -92,6 +100,8 @@ public class CommentDao {
 				comment.setPost_id(post_id);
 				comment.setUser_id(user_id);
 				comment.setName(name);
+				comment.setBranch_id(branch_id);
+				comment.setDepartment_id(department_id);
 
 				ret.add(comment);
 			}

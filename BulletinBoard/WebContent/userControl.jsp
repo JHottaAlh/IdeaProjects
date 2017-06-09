@@ -7,9 +7,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="./css/submit.css" rel="stylesheet" type="text/css" media="screen" />
 <link href="./css/alertSubmit.css" rel="stylesheet" type="text/css" media="screen" />
-<%-- <link href="./css/deleteButton.css" rel="stylesheet" type="text/css" media="screen" /> --%>
 <link href="./css/main.css" rel="stylesheet" type="text/css" media="screen" />
 <link href="./css/userControl.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="./css/deleteButton.css" rel="stylesheet" type="text/css" media="screen" />
 <script type = "text/javascript">
 <!--
 //ユーザー状態切り替え時の確認ダイアログ(is_stopped)
@@ -28,7 +28,7 @@ function disp(){
 }
 -->
 </script>
-<title>ユーザー管理画面</title>
+<title>ユーザー管理</title>
 </head>
 <body>
 <div id = "center-contents">
@@ -56,7 +56,7 @@ function disp(){
 <div class = "member-list">
 	<table class = "table">
 	<tr class = "tr_name">
-	<td>ログインID</td> <td>ユーザー名</td> <td>支店</td> <td>部署・役職</td> <td>状態</td> <td></td>
+	<td>ログインID</td> <td>名称</td> <td>支店</td> <td>部署・役職</td> <td>状態</td> <td></td>
 	</tr>
 
 	<%-- 登録された社員の数だけリストを表示する(未実装) --%>
@@ -91,12 +91,12 @@ function disp(){
  					<c:if test = "${ data.is_stopped == 0 }">
  						<input type = "hidden" name = "id" id = "id" value = "${ data.id }"/>
  						<input type = "hidden" name = "is_stopped" id = "is_stopped" value = "${ data.is_stopped }"/>
- 						<input type = "submit" value = "停止" onClick = "return disp()"/>
+ 						<input type = "submit" class = "button" value = "停止" onClick = "return disp()"/>
  					</c:if>
  					<c:if test = "${ data.is_stopped == 1 }">
  						<input type = "hidden" name = "id" id = "id" value = "${ data.id }"/>
  						<input type = "hidden" name = "is_stopped" id = "is_stopped" value = "${ data.is_stopped }"/>
- 						<input type = "submit" value = "復活" onClick = "return disp()"/>
+ 						<input type = "submit" class = "resurrection" value = "復活" onClick = "return disp()"/>
  					</c:if>
  				</form>
  			</c:if>
@@ -106,7 +106,7 @@ function disp(){
  			<td class = "td_userEdit">
  			<form action = "useredit" method = "get">
  			<input type = "hidden" name = "id" id = "id" value = "${ data.id }"/>
- 			<input type = "submit" value = "編集"/>
+ 			<input type = "submit" class = "editbutton" value = "編集"/>
  			</form>
  			</td>
  		</tr>
