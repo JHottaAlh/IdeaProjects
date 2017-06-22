@@ -1,0 +1,44 @@
+@CHARSET "UTF-8";
+
+.js-raise:hover,
+.js-raise:focus {
+  box-shadow: 0 0.7em 0.5em -0.4em #EB2142;
+  transform: translateY(-0.25em);
+}
+
+$colors: (
+  js-raise: #F27398, 
+);
+
+@each $button, $color in $colors {
+  .#{$button} {
+    --color: $color;
+    --hover: adjust-hue($color, 45deg);
+  }
+}
+
+#JS button {  
+  color: #F27398;
+  transition: 0.25s;
+  
+  &:hover,
+  &:focus { 
+    border-color: #F27398;
+    color: #ffa260;
+  }
+}
+
+#JS button {
+  background: none;
+  border: 5px solid;
+  font: inherit;
+  margin: 0.5em;
+  padding: 1em 2em;
+}
+
+h1 { font-weight: 400; }
+
+code { 
+  color: #F27398;
+  font: inherit;
+}
