@@ -1,0 +1,117 @@
+@CHARSET "UTF-8";
+
+/*
+参考URL:https://theorthodoxworks.com/web-design/jquery-click-to-slide-menu/
+
+z-indexについて----
+position: static(デフォルト値)だと適用されない
+relativeやabsoluteなどを利用する
+*/
+
+/* サイドオープン時にメインコンテンツを覆う部分 */
+.overlay {
+  content: '';
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0);
+  -webkit-transition: all .5s ease;
+  transition: all .5s ease;
+  z-index: 2;
+}
+.overlay::after {
+  content: "Click to Close";
+  visibility: hidden;
+  position: fixed;
+  top: 40%;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 50px;
+  color: rgba(255,255,255,0);
+  font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+  -webkit-transition: all .5s ease;
+  transition: all .5s ease;
+  z-index: 4;
+}
+.side-open .overlay {
+  visibility: visible;
+  cursor: pointer;
+  background: rgba(0,0,0,.7);
+}
+.side-open .overlay::after {
+  visibility: visible;
+  color: rgba(255,255,255,.8);
+}
+
+/* サイドメニュー ※リストのスタイルは省略 */
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  padding-top: 150px;
+  text-align: left;
+  font-size: 13px;
+  background: #2A408E;
+  z-index: 0;
+}
+
+/* 開閉用ボタン ※ボタンの細かいスタイルは省略 */
+.side-menu-btn {
+  position: fixed;
+  top: 5px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+  cursor: pointer;
+  z-index: 3;
+}
+.ellipsis-v {
+	position: relative;
+	display: block;
+	cursor: pointer;
+	width: 40px;
+	height: 40px;
+}
+.point.top {
+	top: 0;
+}
+.point.mid {
+	top: 0;
+	bottom: 0;
+}
+.point.bot {
+	bottom: 0;
+}
+
+.ellipsis-v
+.point {
+	position: absolute;
+	left: 0;
+	right: 0;
+	display: block;
+	width: 8px;
+	height: 8px;
+	margin: auto;
+	background: #fff;
+	box-shadow: 0 0 8px 0 #161616;
+	-webkit-transition: all 3s;
+	transition: all .3s;
+}
+
+/* サイドメニューオープン */
+.side-open #contents,
+.side-open #container,
+.side-open .overlay {
+  -webkit-transform: translate3d(-300px, 0, 0);
+  transform: translate3d(-300px, 0, 0);
+}
