@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "jp.smi.spring.mapper.UserMapper">
+
+    <resultMap id = "UserResult" type = "jp.smi.spring.entity.User">
+        <result column = "login_id" property = "login_id" />
+        <result column = "password" property = "password" />
+    </resultMap>
+    
+    <select id = "getUser" resultMap = "UserResult" parameterType = "String">
+        select id, password
+        from users
+        where login_id = #{login_id} AND password = #{password}
+    </select>
+</mapper>

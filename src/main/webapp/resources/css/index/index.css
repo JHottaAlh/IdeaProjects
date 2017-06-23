@@ -1,0 +1,41 @@
+@CHARSET "UTF-8";
+
+.info {
+	display: inline-block;
+}
+.info h1 {
+	text-align: left;
+}
+
+.menu {
+	text-align: center;
+	background-color: #383838;
+}
+
+#CSS {
+	display: inline-block;
+}
+#JS {
+	display: inline-block;
+}
+
+#CSS button {
+	text-align: center;
+	width: 300px;
+	height: 300px;
+}
+
+#JS button {
+	text-align: center;
+	width: 300px;
+	height: 300px;
+}
+
+#CSS h1 {
+	font-size: 40px;
+	color: #fff;
+}
+#JS h1 {
+	font-size: 40px;
+	color: #fff;
+}
