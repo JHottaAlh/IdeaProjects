@@ -1,12 +1,5 @@
 @CHARSET "UTF-8";
 
-
-
-#contents {
-	margin:70px auto 0;
-	text-align: center;
-}
-
 .info {
 	display: inline-block;
 }
@@ -14,8 +7,9 @@
 	text-align: left;
 }
 
-.manu {
+.menu {
 	text-align: center;
+	background-color: #383838;
 }
 
 #CSS {
