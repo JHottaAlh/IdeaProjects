@@ -4,6 +4,7 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
 
 <html>
 <head>
@@ -29,8 +30,15 @@
 <!-- サイドメニュー -->
 <nav class="side-menu">
 <ul id = "nav">
+	<c:choose>
+		<c:when test = "${ empty User }">
+			<li><a class = "btn-1" href="login">Login</a></li>
+		</c:when>
+		<c:otherwise>
+			<li><a class = "btn-1" href="logout">Logout</a></li>
+		</c:otherwise>
+	</c:choose>
 	<li><a class = "btn-1" href="signup">Signup</a></li>
-	<li><a class = "btn-1" href="login">Login</a></li>
 </ul>
 </nav>
 
@@ -49,6 +57,9 @@
 		Choose<br />
 		Programming language
 		</h1>
+		<c:if test = "${ not empty User }">
+			<c:out value = "Welcome ${ User.login_id }" />
+		</c:if>
 	</div>
 	<div class = "menu">
 		<div id = "CSS">

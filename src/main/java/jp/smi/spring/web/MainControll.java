@@ -6,11 +6,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import jp.smi.spring.dto.UserDto;
 import jp.smi.spring.form.UserForm;
 import jp.smi.spring.service.LoginService;
 
+@SessionAttributes("User")
 @Controller
 public class MainControll {
 	@Autowired
@@ -47,6 +50,10 @@ public class MainControll {
 	
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String login(Model model){
+		UserForm first = new UserForm();
+		first.setLogin_id("");
+		first.setPassword("");
+		model.addAttribute("loginForm", first);
 		
 		return "login";
 	}
@@ -54,12 +61,19 @@ public class MainControll {
 	
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public String userCheck(@ModelAttribute UserForm userInfo, Model model){
-		String login_id = userInfo.getLogin_id();
+		String login_id = userInfo.getLogin_id();		//値は取得できてる
 		String password = userInfo.getPassword();
 		UserDto dto = loginService.getUser(login_id, password);
 		model.addAttribute("User", dto);
 		
-		return "index";
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "logout", method = RequestMethod.GET)
+	public String logout(SessionStatus sessionStatus){
+		//セッションを削除したい場合メソッドの引数にSessionStatus型を宣言し、setCompleteメソッドを呼ぶだけ
+		sessionStatus.setComplete();
+		return "redirect:/";
 	}
 	
 	

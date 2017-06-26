@@ -17,7 +17,7 @@ public class LoginService {
 	public UserDto getUser(String login_id, String password){
 		//UserDto型のインスタンスを作成
 		UserDto dto = new UserDto();
-		User entity = userMapper.getUser(login_id, password);
+		User entity = userMapper.getUser(login_id, password);	//値はしっかり格納できている
 		BeanUtils.copyProperties(entity, dto);
 		
 		return dto;

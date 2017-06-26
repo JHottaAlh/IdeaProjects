@@ -29,8 +29,8 @@
 <!-- サイドメニュー -->
 <nav class="side-menu">
 <ul id = "nav">
-	<li><a class = "btn-1" href="signup">Signup</a></li>
 	<li><a class = "btn-1" href="login">Login</a></li>
+	<li><a class = "btn-1" href="signup">Signup</a></li>
 </ul>
 </nav>
 
