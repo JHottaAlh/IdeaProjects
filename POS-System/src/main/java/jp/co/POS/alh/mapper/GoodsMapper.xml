@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "jp.co.POS.alh.mapper.GoodsMapper">
+
+	<resultMap id = "GoodsResult" type = "jp.co.POS.alh.entity.Goods">
+        <result column = "code" property = "code" />
+        <result column = "goods_name" property = "goods_name" />
+        <result column = "category" property = "category" />
+        <result column = "price" property = "price" />
+        <result column = "maker" property = "maker" />
+    </resultMap>
+    
+    <select id = "getGoods" resultMap = "GoodsResult" parameterType = "String">
+        select *
+        from goods
+        where code = #{ code }
+    </select>
+</mapper>
